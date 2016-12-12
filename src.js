@@ -141,7 +141,7 @@ class FormKeeper {
   }
   static saveValue (index, domElValue, identificador, encriptado) {
     if (encriptado) {
-      const bjtFormKeeper = window.sessionStorage.getItem('FormKeeper') !== null ? JSON.parse(this.prototype.decode(window.sessionStorage.getItem('FormKeeper'))) : {}
+      const bjtFormKeeper = window.localStorage.getItem('FormKeeper') !== null ? JSON.parse(this.prototype.decode(window.localStorage.getItem('FormKeeper'))) : {}
 
       bjtFormKeeper[identificador] = bjtFormKeeper[identificador] ? bjtFormKeeper[identificador] : []
 
@@ -149,14 +149,14 @@ class FormKeeper {
 
       const readyToSend = this.prototype.encode(JSON.stringify(bjtFormKeeper))
 
-      window.sessionStorage.setItem('FormKeeper', readyToSend)
+      window.localStorage.setItem('FormKeeper', readyToSend)
     } else {
-      window.sessionStorage.setItem(`${identificador + index}`, domElValue)
+      window.localStorage.setItem(`${identificador + index}`, domElValue)
     }
   }
   static saveRadio (index, domElValue, identificador, encriptado, info) {
     if (encriptado) {
-      const bjtFormKeeper = window.sessionStorage.getItem('FormKeeper') !== null ? JSON.parse(this.prototype.decode(window.sessionStorage.getItem('FormKeeper'))) : {}
+      const bjtFormKeeper = window.localStorage.getItem('FormKeeper') !== null ? JSON.parse(this.prototype.decode(window.localStorage.getItem('FormKeeper'))) : {}
 
       bjtFormKeeper[identificador] = bjtFormKeeper[identificador] ? bjtFormKeeper[identificador] : []
 
@@ -170,9 +170,9 @@ class FormKeeper {
 
       const readyToSend = this.prototype.encode(JSON.stringify(bjtFormKeeper))
 
-      window.sessionStorage.setItem('FormKeeper', readyToSend)
+      window.localStorage.setItem('FormKeeper', readyToSend)
     } else {
-      const radio = window.sessionStorage.getItem(`${identificador + index}`) !== null ? window.sessionStorage.getItem(`${identificador + index}`).split(',') : []
+      const radio = window.localStorage.getItem(`${identificador + index}`) !== null ? window.localStorage.getItem(`${identificador + index}`).split(',') : []
 
       for (let i = 0; i < info[0]; i++) {
         radio[i] = false
@@ -180,13 +180,13 @@ class FormKeeper {
 
       radio[info[1]] = domElValue
 
-      window.sessionStorage.setItem(`${identificador + index}`, radio)
+      window.localStorage.setItem(`${identificador + index}`, radio)
     }
   }
   restaurar (cb) {
     const promesa = new Promise((resolve, reject) => {
       if (this.estructura.encriptado) {
-        const bjtFormKeeper = window.sessionStorage.getItem('FormKeeper') !== null ? JSON.parse(this.decode(window.sessionStorage.getItem('FormKeeper'))) : null
+        const bjtFormKeeper = window.localStorage.getItem('FormKeeper') !== null ? JSON.parse(this.decode(window.localStorage.getItem('FormKeeper'))) : null
 
         if (bjtFormKeeper === null) reject('No hay elementos que restaurar en este momento.')
 
@@ -206,8 +206,8 @@ class FormKeeper {
         }
       } else {
         const lCmbs = []
-        for (let item in window.sessionStorage) {
-          if (item.includes(this.estructura.identificador)) lCmbs[item.replace(this.estructura.identificador, '')] = window.sessionStorage.getItem(item).includes(',') ? window.sessionStorage.getItem(item).split(',') : window.sessionStorage.getItem(item)
+        for (let item in window.localStorage) {
+          if (item.includes(this.estructura.identificador)) lCmbs[item.replace(this.estructura.identificador, '')] = window.localStorage.getItem(item).includes(',') ? window.localStorage.getItem(item).split(',') : window.localStorage.getItem(item)
         }
 
         if (lCmbs.length === 0) reject('No hay elementos que restaurar en este momento.')
