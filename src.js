@@ -4,7 +4,7 @@ class FormKeeper {
     'use strict'
 
     // Si la función no recibe como primer parámetro el "id" del form a guardar, la función se cancela y se imprime por consola el error.
-    if (!f) return console.error('Para ejecutar FormKeeper adecuadamente, debe indicar en el primer parámetro la información nesesaria para poder trabajar. Para más información, consulte la documentación en: ')
+    if (!f) return console.error('Para ejecutar FormKeeper adecuadamente, debe indicar en el primer parámetro la información nesesaria para poder trabajar. Para más información, consulte la documentación en: https://github.com/EdGraVill/formKeeper')
 
     // Si el segundo parámetro que recibe la función no es un booleano, la opción de enriptado se mantiene activada, pero se imprime por consola una advertencia de la situación.
     if (typeof s !== 'boolean' && s !== undefined) console.warn('El segundo parámetro sólo admite un valor de tipo boleando (true / false), esto para indicar si desea que FormKeeper mantenga encriptada la información que guarda. Por defecto, el sistema de encriptación está activado')
@@ -17,7 +17,9 @@ class FormKeeper {
       ignorarTipos: [
         'submit',
         'reset',
-        'button'
+        'button',
+        'file',
+        'image'
       ],
       elementos: [
         'INPUT',
