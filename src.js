@@ -183,7 +183,7 @@ class FormKeeper {
       window.sessionStorage.setItem(`${identificador + index}`, radio)
     }
   }
-  restaurar () {
+  restaurar (cb) {
     const promesa = new Promise((resolve, reject) => {
       if (this.estructura.encriptado) {
         const bjtFormKeeper = window.sessionStorage.getItem('FormKeeper') !== null ? JSON.parse(this.decode(window.sessionStorage.getItem('FormKeeper'))) : null
@@ -205,18 +205,38 @@ class FormKeeper {
           }
         }
       } else {
+        const lCmbs = []
+        for (let item in window.sessionStorage) {
+          if (item.includes(this.estructura.identificador)) lCmbs[item.replace(this.estructura.identificador, '')] = window.sessionStorage.getItem(item).includes(',') ? window.sessionStorage.getItem(item).split(',') : window.sessionStorage.getItem(item)
+        }
 
+        if (lCmbs.length === 0) reject('No hay elementos que restaurar en este momento.')
+
+        for (let i = 0; i < this.estructura.domEls.length; i++) {
+          const thisDomEl = this.estructura.domEls[i]
+          if (thisDomEl instanceof Array) {
+            for (let j = 0; j < thisDomEl.length; j++) {
+              if (lCmbs[i][j] === 'true') {
+                thisDomEl[j].checked = true
+              }
+            }
+          } else if (thisDomEl.type === 'checkbox') {
+            thisDomEl.checked = lCmbs[i] ? lCmbs[i] : false
+          } else {
+            thisDomEl.value = lCmbs[i] ? lCmbs[i] : ''
+          }
+        }
       }
       resolve(this.estructura.restaurarCallback)
     })
 
     promesa.then((callback) => {
-      callback.call()
+      if (cb !== undefined && this.isFunction(cb)) cb.call()
+      if (cb === undefined) callback.call()
     }, (error) => {
       console.warn(error)
     })
   }
-
   // Encriptador adaptado de: http://hdeleon.net/codificar-y-decodificar-base64-en-javascript/ GRACIAS!!!
   _keyStr () {
     return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
@@ -304,6 +324,10 @@ class FormKeeper {
       }
     }
     return t
+  }
+  isFunction (functionToCheck) {
+    const getType = {}
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]'
   }
 }
 
