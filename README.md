@@ -1,6 +1,6 @@
 <h1 align="center">FormKeeper</h1>
 
-<p align="center">![FormKeeper Logo](https://github.com/EdGraVill/formKeeper/raw/master/logo-small.png)</p>
+<p align="center"><img src="https://github.com/EdGraVill/formKeeper/raw/master/logo-small.png" alt="FormKeeper Logo"></p>
 
 <p align="center">FormKeeper te ayuda no importa qué caso fortuito te toque.</p>
 
