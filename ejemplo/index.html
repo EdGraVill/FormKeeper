@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>formKeeper</title>
+  </head>
+  <body>
+    <form id="ejemplo" class="ejemplo">
+      <label for="nmbrs">Nombre:</label><br>
+      <input type="text" name="nombres"><br><br>
+      <label for="pllds">Apellidos:</label><br>
+      <input id="pllds" type="text" name="apellidos"><br><br>
+      <label for="gnr">Género:</label><br>
+      <select id="gnr" name="genero">
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+        <option value="otro">Otro</option>
+      </select><br><br>
+      <p>Sabor de Helado</p>
+      <input type="radio" name="gustos" id="gusto_fresa"> fresa<br>
+      <input type="radio" name="gustos" id="gusto_chocolate"> chocolate<br>
+      <input type="radio" name="gustos" id="gusto_vainilla"> vainilla<br><br>
+      <p>Deporte Preferido</p>
+      <input type="radio" name="deporte" id="deporte_futbol"> futbol<br>
+      <input type="radio" name="deporte" id="deporte_basketbol"> basketbol<br><br>
+      <textarea name="comentario" rows="8" cols="80", placeholder="Comentario"></textarea><br><br>
+      <input type="checkbox" name="tyc" id="tyc"> Acepto los TyC <br><br>
+      <input type="submit" value="Enviar"><br><br>
+    </form>
+
+    <script src="../src.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      const save = new FormKeeper('ejemplo', true)
+    </script>
+  </body>
+</html>
