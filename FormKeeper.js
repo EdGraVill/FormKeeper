@@ -1,3 +1,15 @@
+/*
+
+ * FormKeeper
+ * Versión: 1.2.0
+ * Repositorio: https://github.com/EdGraVill/FormKeeper
+ * Licencia: General Public Licence 3.0
+ * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.
+ * 3 Versiones: Completa, Lite y Attributable.
+ * Changelog al pie del código.
+
+ */
+
 // La función puede recibir como primer parámetro el "id" del form, o un "DOM Element"
 class FormKeeper {
   constructor (f, s) {
@@ -69,7 +81,7 @@ class FormKeeper {
       const hijos = fk.domEl.childNodes
 
       for (let i = 0; i < hijos.length; i++) {
-        if (fk.elementos.indexOf(hijos[i].tagName) >= 0 && fk.ignorarTipos.indexOf(hijos[i].type) === -1 && fk.ignorarDomEls.indexOf(hijos[i]) === -1) {
+        if (fk.elementos.indexOf(hijos[i].tagName) >= 0 && fk.ignorarElementos.indexOf(hijos[i].tagName) === -1 && fk.ignorarTipos.indexOf(hijos[i].type) === -1 && fk.ignorarDomEls.indexOf(hijos[i]) === -1) {
           fk.domEls.push(hijos[i])
         }
       }
@@ -194,7 +206,7 @@ class FormKeeper {
 
         for (let i = 0; i < this.estructura.domEls.length; i++) {
           const thisDomEl = this.estructura.domEls[i]
-          if (thisDomEl instanceof Array) {
+          if (thisDomEl instanceof Array && bjtFormKeeper[this.estructura.identificador][i] !== undefined) {
             for (let j = 0; j < thisDomEl.length; j++) {
               if (bjtFormKeeper[this.estructura.identificador][i][j] === true) {
                 thisDomEl[j].checked = true
@@ -333,4 +345,16 @@ class FormKeeper {
   }
 }
 
-// Hacer un limpiador, un callback de ese limpiador y un limpiador automático
+/*
+
+ * Lista de cambios (Changelog):
+
+ * - ¡NUEVO! Versión Lite y Attributable
+ *   | Ahora se puede implementar sin opciones avanzadas, y ade_
+ *   | más, con la versión Attributable, simplemente agregando 
+ *   | atributos a los elementos específicos o contenedores de 
+ *   | inputs.
+
+ * - Nueva estructura del Repositorio
+
+*/

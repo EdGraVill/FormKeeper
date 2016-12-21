@@ -1,8 +1,9 @@
+
 <h1 align="center">FormKeeper</h1>
 
 <p align="center"><img src="https://github.com/EdGraVill/formKeeper/raw/master/logo-small.png" alt="FormKeeper Logo"></p>
 
-<p align="center">FormKeeper te ayuda no importa qué caso fortuito te toque.</p>
+<p align="center">Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.</p>
 
 <h2 align="center">Preámbulo</h2>
 
