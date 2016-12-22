@@ -6,8 +6,61 @@
 
 <h2 align="center">Índice</h2>
 
+##### [Ediciones](#ediciones)
+- [FormKeeper](#-formkeeper)
+  - [Documentación](#documentación)
+- [FormKeeper Lite](#-formkeeper-lite)
+  - [Documentación](#documentación-1)
+- [FormKeeper Attributable](#-formkeeper-attributable)
+  - [Documentación](#documentación-2)
+
 ##### [Preámbulo](#preámbulo)
 - [¿Para qué sirve?](#para-qué-sirve)
+- [¿De dónde surgió la idea?](#de-dónde-surgió-la-idea)
+- [Restricciones](#restricciones)
+
+##### [Implementación](#implementación)
+- [Instalación](#instalación)
+  - [Ejemplo](#ejemplo)
+- [Uso](#uso)
+  - [Crear una nueva instancia](#crear-una-nueva-instancia)
+    - [Ejemplo](#ejemplo-1)
+  - [Guardado de los Datos](#guardado-de-los-datos)
+  - [Restauración de los Datos](#restauración-de-los-datos)
+    - [Ejemplo](#ejemplo-2)
+    - [Callback](#callback)
+      - [Ejemplo](#ejemplo-3)
+    - [Autorestauración](#autorestauración)
+      - [Ejemplo](#ejemplo-4)
+- [FormKeeper( domEl/Lista/Opciones [, encriptacion] )](#formkeeper-domellistaopciones--encriptacion-)
+  - [domEl](#domel)
+    - [Nuestro HTML](#nuestro-html)
+      - [Ejemplo](#ejemplo-5)
+    - [Nuestro JS](#nuestro-js)
+      - [Ejemplo con Todo el Form](#ejemplo-6)
+      - [Ejemplo con un Elemento Específico](#ejemplo-7)
+  - [Lista (Array)](#lista-array)
+    - [Nuestro HTML](#nuestro-html-1)
+      - [Ejemplo](#ejemplo-8)
+    - [Nuestro JS](#nuestro-js-1)
+      - [Ejemplo](#ejemplo-9)
+  - [Objeto de Opciones Avanzadas](#objeto-de-opciones-avanzadas)
+    - [Nuestro HTML](#nuestro-html-2)
+      - [Ejemplo](#ejemplo-10)
+    - [Nuestro JS](#nuestro-js-2)
+      - [Ejemplo](#ejemplo-11)
+
+##### [Opciones Avanzadas](#opciones-avanzadas)
+- [Ejemplo](#ejemplo-12)
+
+##### [API](#api)
+- [FormKeeper.prototype.restaurar( [callback] )](#formkeeperprototyperestaurar-callback-)
+- [FormKeeper.saveValue(index, domElValue, identificador, encriptado)](#formkeepersavevalueindex-domelvalue-identificador-encriptado)
+- [FormKeeper.saveRadio(index, domElValue, identificador, encriptado, info)](#formkeepersaveradioindex-domelvalue-identificador-encriptado-info)
+
+##### [Compatibilidad](#compatibilidad)
+
+##### [Para futuras versiones](#para-futuras-versiones)
 
 <h2 align="center">Ediciones</h2>
 
@@ -22,6 +75,7 @@ Edición sin opciones avanzadas, planeada para la implementación y uso rápido,
 ##### [Documentación](https://github.com/EdGraVill/FormKeeper/tree/master/Lite#formkeeper-lite)
 
 ### ![FormKeeperAttributable](https://github.com/EdGraVill/formKeeper/raw/master/Attributable/logo-icon.png) FormKeeper Attributable
+Edición que se implementa sin utilizar ninguna linea de código, salvo para la restauración de los datos; sólo agregando el attributo `FormKeeper` al o los Elementos del DOM con los que se desea trabajar.
 
 ##### [Documentación](https://github.com/EdGraVill/FormKeeper/tree/master/Attributable#formkeeper-attributable)
 
@@ -84,7 +138,7 @@ Para que funcione correctamente, hay que crear una nueva instancia del objeto Fo
     </form>
 
     <script type="text/javascript">
-      const salvarForm = new FormKeeper( domEl [, encriptacion] )
+      const salvarForm = new FormKeeper( domEl/Lista/Opciones [, encriptacion] )
     </script>
   </body>
 </html>

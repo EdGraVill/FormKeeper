@@ -1,5 +1,5 @@
 /*
-
+ *
  * FormKeeper
  * Versión: 1.2.x
  * Repositorio: https://github.com/EdGraVill/FormKeeper
@@ -7,7 +7,7 @@
  * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.
  * 3 Versiones: Completa, Lite y Attributable.
  * Changelog al pie del código.
-
+ *
  */
 
 // Función para hacer splice de un array dentro de otro array. Adaptado de http://stackoverflow.com/a/28162065
@@ -274,17 +274,19 @@ for (let i = 0; i < fk.domEls.length; i++) {
 }
 
 /*
-
+ *
  * Lista de cambios (Changelog):
-
+ *
  * - ¡NUEVO! Versión Lite y Attributable
  *   | Ahora se puede implementar sin opciones avanzadas, y ade_
  *   | más, con la versión Attributable, simplemente agregando 
  *   | atributos a los elementos específicos o contenedores de 
  *   | inputs.
-
+ *
  * - Nueva estructura del Repositorio
-
+ *
  * - Algunos fallos arreglados
-
-*/
+ *
+ * - Índice de contenidos para los README
+ *
+ */

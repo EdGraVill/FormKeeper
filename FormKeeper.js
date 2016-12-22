@@ -1,5 +1,5 @@
 /*
-
+ *
  * FormKeeper
  * Versión: 1.2.x
  * Repositorio: https://github.com/EdGraVill/FormKeeper
@@ -7,7 +7,7 @@
  * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.
  * 3 Versiones: Completa, Lite y Attributable.
  * Changelog al pie del código.
-
+ *
  */
 
 // La función puede recibir como primer parámetro el "id" del form, o un "DOM Element"
@@ -346,17 +346,19 @@ class FormKeeper {
 }
 
 /*
-
+ *
  * Lista de cambios (Changelog):
-
+ *
  * - ¡NUEVO! Versión Lite y Attributable
  *   | Ahora se puede implementar sin opciones avanzadas, y ade_
  *   | más, con la versión Attributable, simplemente agregando 
  *   | atributos a los elementos específicos o contenedores de 
  *   | inputs.
-
+ *
  * - Nueva estructura del Repositorio
-
+ *
  * - Algunos fallos arreglados
-
-*/
+ *
+ * - Índice de contenidos para los README
+ *
+ */
