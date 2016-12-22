@@ -4,6 +4,27 @@
 
 <p align="center">Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.</p>
 
+<h2 align="center">Índice</h2>
+
+##### [Preámbulo](#preámbulo)
+- [¿Para qué sirve?](#para-qué-sirve)
+
+<h2 align="center">Ediciones</h2>
+
+### ![FormKeeper](https://github.com/EdGraVill/formKeeper/raw/master/logo-icon.png) FormKeeper
+Edición completa de FormKeeper con soporte para opciones avanzadas, además de personalización más clara y compleja
+
+###### [Documentación](https://github.com/EdGraVill/FormKeeper#formkeeper)
+
+### ![FormKeeperLite](https://github.com/EdGraVill/formKeeper/raw/master/Lite/logo-icon.png) FormKeeper Lite
+Edición sin opciones avanzadas, planeada para la implementación y uso rápido, sencillo y sin exceso de código. No contiene funciones, por lo cual, el guardado y restablecimiento de datos es automático.
+
+##### [Documentación](https://github.com/EdGraVill/FormKeeper/tree/master/Lite#formkeeper-lite)
+
+### ![FormKeeperAttributable](https://github.com/EdGraVill/formKeeper/raw/master/Attributable/logo-icon.png) FormKeeper Attributable
+
+##### [Documentación](https://github.com/EdGraVill/FormKeeper/tree/master/Attributable#formkeeper-attributable)
+
 <h2 align="center">Preámbulo</h2>
 
 ### ¿Para qué sirve?
