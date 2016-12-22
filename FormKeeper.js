@@ -1,7 +1,7 @@
 /*
 
  * FormKeeper
- * Versión: 1.2.0
+ * Versión: 1.2.x
  * Repositorio: https://github.com/EdGraVill/FormKeeper
  * Licencia: General Public Licence 3.0
  * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.
@@ -206,7 +206,7 @@ class FormKeeper {
 
         for (let i = 0; i < this.estructura.domEls.length; i++) {
           const thisDomEl = this.estructura.domEls[i]
-          if (thisDomEl instanceof Array && bjtFormKeeper[this.estructura.identificador][i] !== undefined) {
+          if (thisDomEl instanceof Array && bjtFormKeeper[this.estructura.identificador][i] !== undefined && bjtFormKeeper[this.estructura.identificador][i] !== null) {
             for (let j = 0; j < thisDomEl.length; j++) {
               if (bjtFormKeeper[this.estructura.identificador][i][j] === true) {
                 thisDomEl[j].checked = true
@@ -356,5 +356,7 @@ class FormKeeper {
  *   | inputs.
 
  * - Nueva estructura del Repositorio
+
+ * - Algunos fallos arreglados
 
 */

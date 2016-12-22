@@ -1,4 +1,3 @@
-
 <h1 align="center">FormKeeper</h1>
 
 <p align="center"><img src="https://github.com/EdGraVill/formKeeper/raw/master/logo-small.png" alt="FormKeeper Logo"></p>

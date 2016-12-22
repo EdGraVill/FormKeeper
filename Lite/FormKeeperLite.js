@@ -1,3 +1,15 @@
+/*
+
+ * FormKeeper
+ * Versión: 1.2.x
+ * Repositorio: https://github.com/EdGraVill/FormKeeper
+ * Licencia: General Public Licence 3.0
+ * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.
+ * 3 Versiones: Completa, Lite y Attributable.
+ * Changelog al pie del código.
+
+ */
+
 // La función puede recibir como primer parámetro el "id" del form, o un "DOM Element"
 class FormKeeperLite {
   constructor (f) {
@@ -160,7 +172,7 @@ class FormKeeperLite {
 
       for (let i = 0; i < this.estructura.domEls.length; i++) {
         const thisDomEl = this.estructura.domEls[i]
-        if (thisDomEl instanceof Array && bjtFormKeeper[this.estructura.identificador][i] !== undefined) {
+        if (thisDomEl instanceof Array && bjtFormKeeper[this.estructura.identificador][i] !== undefined && bjtFormKeeper[this.estructura.identificador][i] !== null) {
           for (let j = 0; j < thisDomEl.length; j++) {
             if (bjtFormKeeper[this.estructura.identificador][i][j] === true) {
               thisDomEl[j].checked = true
@@ -277,3 +289,19 @@ class FormKeeperLite {
 }
 
 // Hacer un limpiador, un callback de ese limpiador y un limpiador automático
+
+/*
+
+ * Lista de cambios (Changelog):
+
+ * - ¡NUEVO! Versión Lite y Attributable
+ *   | Ahora se puede implementar sin opciones avanzadas, y ade_
+ *   | más, con la versión Attributable, simplemente agregando 
+ *   | atributos a los elementos específicos o contenedores de 
+ *   | inputs.
+
+ * - Nueva estructura del Repositorio
+
+ * - Algunos fallos arreglados
+
+*/

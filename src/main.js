@@ -194,7 +194,7 @@ class FormKeeper {
 
         for (let i = 0; i < this.estructura.domEls.length; i++) {
           const thisDomEl = this.estructura.domEls[i]
-          if (thisDomEl instanceof Array && bjtFormKeeper[this.estructura.identificador][i] !== undefined) {
+          if (thisDomEl instanceof Array && bjtFormKeeper[this.estructura.identificador][i] !== undefined && bjtFormKeeper[this.estructura.identificador][i] !== null) {
             for (let j = 0; j < thisDomEl.length; j++) {
               if (bjtFormKeeper[this.estructura.identificador][i][j] === true) {
                 thisDomEl[j].checked = true
