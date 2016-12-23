@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel=icon href="../logo.png" sizes="512x512" type="image/png">
+    <meta property="og:url" content="https://edgravill.github.io/FormKeeper/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="FormKeeper" />
+    <meta property="og:description" content="Mantén la información de tus 'form' sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end." />
+    <meta property="og:image" content="https://edgravill.github.io/FormKeeper/img/banner.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#18f0c0">
+    <meta name="apple-mobile-web-app-title" content="FormKeeper">
+    <meta name="application-name" content="FormKeeper">
+    <meta name="msapplication-TileColor" content="#18f0c0">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#18f0c0">
     <meta charset="utf-8">
     <title>formKeeper</title>
     <script src="../Attributable/FormKeeperAttributable.min.js" charset="utf-8"></script>
   </head>
   <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '754497911367677',
+          xfbml: true,
+          version: 'v2.8'
+        })
+      }
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0]
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id
+         js.src = "//connect.facebook.net/en_US/sdk.js"
+         fjs.parentNode.insertBefore(js, fjs)
+       }(document, 'script', 'facebook-jssdk'))
+    </script>
     <form id="ejemplo" class="ejemplo">
       <label for="nmbrs">Nombre:</label><br>
       <input type="text" name="nombres"><br><br>
