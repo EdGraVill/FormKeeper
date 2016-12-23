@@ -4,6 +4,40 @@
 
 <p align="center">Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end. ¡AHORA FÁCIL Y RÁPIDO!</p>
 
+<h2 align="center">Índice</h2>
+
+##### 1. [Ediciones](#ediciones)
+&nbsp;&nbsp;1.1 [FormKeeper](#-formkeeper)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.1.1 [Documentación](https://github.com/EdGraVill/FormKeeper#formkeeper)  
+&nbsp;&nbsp;1.2 [FormKeeper Lite](#-formkeeper-lite)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2.1 [Documentación](https://github.com/EdGraVill/FormKeeper/tree/master/Lite#formkeeper-lite)  
+&nbsp;&nbsp;1.3 [FormKeeper Attributable](#-formkeeper-attributable)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.3.1 [Documentación](https://github.com/EdGraVill/FormKeeper/tree/master/Attributable#formkeeper-attributable)  
+
+##### 2. [Preámbulo](#preámbulo)
+&nbsp;&nbsp;2.1 [¿Para qué sirve?](#para-qué-sirve)  
+&nbsp;&nbsp;2.2 [¿De dónde surgió la idea?](#de-dónde-surgió-la-idea)  
+&nbsp;&nbsp;2.3 [Restricciones](#restricciones)  
+&nbsp;&nbsp;2.4 [Explicación de la Edición](#explicación-de-la-edición)
+
+##### 3. [Implementación](#implementación)
+&nbsp;&nbsp;3.1 [Instalación](#instalación)  
+&nbsp;&nbsp;3.2 [Uso](#uso)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.1 [Crear una nueva instancia](#crear-una-nueva-instancia)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.2 [Guardado de los Datos](#guardado-de-los-datos)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3 [Restauración de los Datos](#restauración-de-los-datos)  
+&nbsp;&nbsp;3.3 [FormKeeper( domEl/Lista/Opciones [, encriptacion] )](#formkeeper-domellistaopciones--encriptacion-)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.1 [domEl](#domel)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.1.1 [Nuestro HTML](#nuestro-html)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.1.2 [Nuestro JS](#nuestro-js)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.2 [Lista (Array)](#lista-array)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.2.1 [Nuestro HTML](#nuestro-html-1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.2.2 [Nuestro JS](#nuestro-js-1)  
+
+##### 4. [Compatibilidad](#compatibilidad)
+
+##### 5. [Para futuras versiones](#para-futuras-versiones)
+
 <h2 align="center">Ediciones</h2>
 
 ### ![FormKeeper](https://github.com/EdGraVill/formKeeper/raw/master/logo-icon.png) FormKeeper
@@ -227,5 +261,6 @@ Es diciembre del 2016. Los propósitos para el siguiente año, por lo menos, son
 - [ ] Invitar a mucha gente para contribuir y también para que lo apliquen a su proyecto.
 - [ ] Listar los sitios que usan FormKeeper en el README.
 - [ ] Inspirar a más programadores a seguir mejorando internet.
+- [ ] Restauración independiente de datos.
 
 Gracias.

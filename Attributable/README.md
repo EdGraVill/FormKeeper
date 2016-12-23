@@ -4,6 +4,34 @@
 
 <p align="center">Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end. ¡AHORA FÁCIL Y RÁPIDO!... ¡Y SIN CASI CÓDIGO!</p>
 
+<h2 align="center">Índice</h2>
+
+##### 1. [Ediciones](#ediciones)
+&nbsp;&nbsp;1.1 [FormKeeper](#-formkeeper)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.1.1 [Documentación](https://github.com/EdGraVill/FormKeeper#formkeeper)  
+&nbsp;&nbsp;1.2 [FormKeeper Lite](#-formkeeper-lite)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2.1 [Documentación](https://github.com/EdGraVill/FormKeeper/tree/master/Lite#formkeeper-lite)  
+&nbsp;&nbsp;1.3 [FormKeeper Attributable](#-formkeeper-attributable)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.3.1 [Documentación](https://github.com/EdGraVill/FormKeeper/tree/master/Attributable#formkeeper-attributable)  
+
+##### 2. [Preámbulo](#preámbulo)
+&nbsp;&nbsp;2.1 [¿Para qué sirve?](#para-qué-sirve)  
+&nbsp;&nbsp;2.2 [¿De dónde surgió la idea?](#de-dónde-surgió-la-idea)  
+&nbsp;&nbsp;2.3 [Restricciones](#restricciones)  
+&nbsp;&nbsp;2.4 [Explicación de la Edición](#explicación-de-la-edición)
+
+##### 3. [Implementación](#implementación)
+&nbsp;&nbsp;3.1 [Instalación](#instalación)  
+&nbsp;&nbsp;3.2 [Uso](#uso)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.1 [Asignar el atributo FormKeeper a nuestros elementos](#asignar-el-atributo-formkeeper-a-nuestros-elementos)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.2 [Guardado de los Datos](#guardado-de-los-datos)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3 [Restauración de los Datos](#restauración-de-los-datos)   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3.1 [Callback](#callback)  
+
+##### 4. [Compatibilidad](#compatibilidad)
+
+##### 5. [Para futuras versiones](#para-futuras-versiones)
+
 <h2 align="center">Ediciones</h2>
 
 ### ![FormKeeper](https://github.com/EdGraVill/formKeeper/raw/master/logo-icon.png) FormKeeper
@@ -45,8 +73,130 @@ Para más información:
 
 ### Explicación de la Edición
 
-Al igual que la Edición [Lite](https://github.com/EdGraVill/formKeeper/raw/master/Lite)
-
-<script>alert('hola')</script>
+Al igual que la Edición [Lite](https://github.com/EdGraVill/formKeeper/raw/master/Lite), esta edición pretende simplificar con creces la implementación de la librería. Sólo que en esta ocación, está orientada a personas con conocimientos muy básicos o nulos en JavaScript. Ya que la integración sucede directamente con el HTML.
 
 <h2 align="center">Implementación</h2>
+
+### Instalación
+
+Como cualquier otra librería, su implementación se basa en su invocación dentro del documento HTML. La librería, al no tratarse de un Objeto como las otras ediciones, <strong>SI</strong> depende de la carga del documento completo para funcionar, pero está optimizado para esperar a la finalización de la carga del mismo; por lo que se puede incluir desde el `<head>`.
+
+###### Ejemplo:
+````HTML
+<!DOCTYPE html>
+<html>
+  <head>
+    [...]
+    <title>...</title>
+    <script src="./ruta/a/FormKeeperAttributable.js" charset="utf-8"></script>
+  </head>
+  <body>
+    [...]
+  </body>
+</html>
+````
+
+### Uso
+
+#### Asignar el atributo FormKeeper a nuestros elementos
+Para que funcione correctamente, hay que asignar en el HTML el atributo `FormKeeper` a los elementos del DOM con los que queremos trabajar.
+
+Se puede agregar el atributo a un elemento contenedor de diversos inputs.
+###### Ejemplo:
+````HTML
+<html>
+  [...]
+  <body>
+    <form FormKeeper> <!-- Al asignarlo al contenedor, funciona con todos los elementos dentro -->
+      <input type="text" name="nombres">
+      <input type="text" name="apellidos">
+    </form>
+  </body>
+</html>
+````
+
+O bien, se puede agregar el atributo a elementos específicos del DOM por separado
+###### Ejemplo:
+````HTML
+<html>
+  [...]
+  <body>
+    <form>
+      <input type="text" name="nombres" FormKeeper> <!-- Funciona aquí -->
+      <input type="text" name="apellidos"> <!-- Aquí no -->
+      <input type="email" name="email" FormKeeper> <!-- Funciona aquí -->
+    </form>
+  </body>
+</html>
+````
+
+También se puede combinar y seleccionar elementos específicos y contenedores simultaneamente.
+
+#### Guardado de los Datos
+Los datos se guardan automáticamente al detectar que ha cambiado el input, ya sea después de agregarle un nuevo caracter a los que son de entrada de texto, o al cambio para los que son de interacción.
+
+#### Restauración de los Datos
+El método para restaurar los valores almacenados en memoria es `FormKeeper.prototype.restaurar( callback )`.
+
+###### Ejemplo:
+````JS
+FormKeeperLite.restaurar()
+````
+
+##### Callback
+Además, el método admite por parámetro un callback que se ejecuta una vez los datos se hayan restaurado.
+
+###### Ejemplo:
+````JS
+FormKeeperLite.restaurar(() => {
+  alert('¡Sus datos regresaron a como los dejó! :)')
+})
+````
+
+<h2 align="center">Compatibilidad</h2>
+
+Actualmente, FormKeeperLite puede entender, salvar y restaurar los siguientes DOM Elements:
+
+* `<datalist>`
+* `<input type="checkbox">`
+* `<input type="color">`
+* `<input type="date">`
+* `<input type="datetime-local">`
+* `<input type="email">`
+* `<input type="hidden">`
+* `<input type="month">`
+* `<input type="number">`
+* `<input type="password">`
+* `<input type="radio">`
+* `<input type="range">`
+* `<input type="search">`
+* `<input type="tel">`
+* `<input type="text">`
+* `<input type="time">`
+* `<input type="url">`
+* `<input type="week">`
+* `<select>`
+* `<textarea>`
+
+<h2 align="center">Para futuras versiones</h2>
+
+Es diciembre del 2016. Los propósitos para el siguiente año, por lo menos, son los siguientes:
+
+- [ ] Método para limpiar el localStorage de una instancia específica.
+- [ ] Método para limpiar el localStorage de una lista de instancias específicas.
+- [ ] Método estático para limpiar el localStorage de cualquier información generada por FormKeeper.
+- [ ] Callback después de ejecutar algún método de limpieza
+- [ ] Ejemplo más bonito (hahaha) e interactivo.
+- [ ] Capacidad de desactivar y activar autoguardado de Datos.
+- [ ] Método para guardar Datos de forma manual.
+- [ ] Callback después de ejecutar algún método de guardado de datos.
+- [ ] Soporte para entender, salvar y restaurar `contenteditable Attribute`.
+- [ ] Agregar soporte para ignorar por selectores.
+- [ ] Agregar los recursos usados en el README.
+- [ ] Tener traducciones para distintos idiomas de la documentación.
+- [ ] Invitar a mucha gente para contribuir y también para que lo apliquen a su proyecto.
+- [ ] Listar los sitios que usan FormKeeper en el README.
+- [ ] Inspirar a más programadores a seguir mejorando internet.
+- [ ] Restauración independiente de datos.
+
+Gracias.
