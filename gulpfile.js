@@ -7,10 +7,10 @@ const concat = require('gulp-concat')
 const cache = require('gulp-cached')
 const remember = require('gulp-remember')
 
-const v = '1.2.x'
+const v = '1.3.x'
 
 const headerT = `/*\n *\n * FormKeeper\n * Versión: ${v}\n * Repositorio: https://github.com/EdGraVill/FormKeeper\n * Licencia: General Public Licence 3.0\n * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.\n * 3 Versiones: Completa, Lite y Attributable.\n * Changelog al pie del código.\n *\n */\n\n`
-const footerT = '\n/*\n *\n * Lista de cambios (Changelog):\n *\n * - ¡NUEVO! Versión Lite y Attributable\n *   | Ahora se puede implementar sin opciones avanzadas, y ade_\n *   | más, con la versión Attributable, simplemente agregando \n *   | atributos a los elementos específicos o contenedores de \n *   | inputs.\n *\n * - Nueva estructura del Repositorio\n *\n * - Algunos fallos arreglados\n *\n * - Índice de contenidos para los README\n *\n */\n'
+const footerT = '\n/*\n *\n * Lista de cambios (Changelog):\n *\n * - ¡NUEVO! Sitio Web Demostrativo\n *\n * - Estructura del Repositorio Modificada\n *\n * - Algunos fallos arreglados\n *\n */\n'
 
 gulp.task('default', function () {
   return gulp.src(['./src/main.js', './src/metodos/*.js'])

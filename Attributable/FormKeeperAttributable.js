@@ -1,7 +1,7 @@
 /*
  *
  * FormKeeper
- * Versión: 1.2.x
+ * Versión: 1.3.x
  * Repositorio: https://github.com/EdGraVill/FormKeeper
  * Licencia: General Public Licence 3.0
  * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.
@@ -234,7 +234,7 @@ window.onload = () => {
   }
 
   // Agregar el identificador único con el que evitaremos repetir o ingresar datos en el lugar que no corresponden.
-  fk.identificador = FormKeeperAttributable.getPathTo(fk.domEls[0])
+  fk.identificador = FormKeeperAttributable.encode(`${window.location.href} - ${FormKeeperAttributable.getPathTo(fk.domEls[0])}`)
 
   const objRds = {}
   for (let i = 0; i < fk.domEls.length; i++) {
@@ -281,16 +281,10 @@ window.onload = () => {
  *
  * Lista de cambios (Changelog):
  *
- * - ¡NUEVO! Versión Lite y Attributable
- *   | Ahora se puede implementar sin opciones avanzadas, y ade_
- *   | más, con la versión Attributable, simplemente agregando 
- *   | atributos a los elementos específicos o contenedores de 
- *   | inputs.
+ * - ¡NUEVO! Sitio Web Demostrativo
  *
- * - Nueva estructura del Repositorio
+ * - Estructura del Repositorio Modificada
  *
  * - Algunos fallos arreglados
- *
- * - Índice de contenidos para los README
  *
  */

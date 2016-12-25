@@ -222,7 +222,7 @@ window.onload = () => {
   }
 
   // Agregar el identificador único con el que evitaremos repetir o ingresar datos en el lugar que no corresponden.
-  fk.identificador = FormKeeperAttributable.getPathTo(fk.domEls[0])
+  fk.identificador = FormKeeperAttributable.encode(`${window.location.href} - ${FormKeeperAttributable.getPathTo(fk.domEls[0])}`)
 
   const objRds = {}
   for (let i = 0; i < fk.domEls.length; i++) {
