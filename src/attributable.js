@@ -72,6 +72,26 @@ window.onload = () => {
     })
   }
 
+  FormKeeperAttributable.limpiar = function (cb, ask) {
+    const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
+
+    const promesa = new Promise((resolve, reject) => {
+      if (cnfrm) {
+        window.localStorage.removeItem('FormKeeperAttributable')
+        resolve(fk.restaurarCallback)
+      } else {
+        reject('Los datos siguen a salvo.')
+      }
+    })
+
+    promesa.then((callback) => {
+      if (cb !== undefined && this.isFunction(cb)) cb.call()
+      if (cb === undefined) callback.call()
+    }, (cancelado) => {
+      console.log(cancelado)
+    })
+  }
+
   FormKeeperAttributable.encode = function (e) {
     let t = ''
     let n, r, i, s, o, u, a
@@ -195,6 +215,9 @@ window.onload = () => {
     ],
     restaurarCallback: () => {
       console.log('Elementos restaurados con éxito.')
+    },
+    limpiarCallback: () => {
+      console.log('FormKeeper limpiado con éxito.')
     }
   }
 

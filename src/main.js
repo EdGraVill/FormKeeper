@@ -33,6 +33,9 @@ class FormKeeper {
       restaurarDefault: false,
       restaurarCallback: () => {
         console.log('Elementos restaurados con éxito.')
+      },
+      limpiarCallback: () => {
+        console.log('FormKeeper limpiado con éxito.')
       }
     }
 
@@ -237,6 +240,26 @@ class FormKeeper {
       if (cb === undefined) callback.call()
     }, (error) => {
       console.warn(error)
+    })
+  }
+  // Método estático para limpiar toda la información que esté almacenada por la librería entera
+  static limpiar (cb, ask) {
+    const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
+
+    const promesa = new Promise((resolve, reject) => {
+      if (cnfrm) {
+        window.localStorage.removeItem('FormKeeper')
+        resolve(this.estructura.limpiarCallback)
+      } else {
+        reject('Los datos siguen a salvo.')
+      }
+    })
+
+    promesa.then((callback) => {
+      if (cb !== undefined && this.isFunction(cb)) cb.call()
+      if (cb === undefined) callback.call()
+    }, (error) => {
+      console.log(error)
     })
   }
   // Encriptador adaptado de: http://hdeleon.net/codificar-y-decodificar-base64-en-javascript/ GRACIAS!!!

@@ -182,11 +182,9 @@ Actualmente, FormKeeperLite puede entender, salvar y restaurar los siguientes DO
 
 Es diciembre del 2016. Los propósitos para el siguiente año, por lo menos, son los siguientes:
 
-- [ ] Método para limpiar el localStorage de una instancia específica.
-- [ ] Método para limpiar el localStorage de una lista de instancias específicas.
-- [ ] Método estático para limpiar el localStorage de cualquier información generada por FormKeeper.
-- [ ] Callback después de ejecutar algún método de limpieza
-- [ ] Ejemplo más bonito (hahaha) e interactivo.
+- [x] Método estático para limpiar el localStorage de cualquier información generada por FormKeeperAttributable.
+- [x] Callback después de ejecutar algún método de limpieza
+- [x] Ejemplo más bonito (hahaha) e interactivo.
 - [ ] Capacidad de desactivar y activar autoguardado de Datos.
 - [ ] Método para guardar Datos de forma manual.
 - [ ] Callback después de ejecutar algún método de guardado de datos.
