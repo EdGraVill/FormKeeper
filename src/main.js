@@ -242,6 +242,31 @@ class FormKeeper {
       console.warn(error)
     })
   }
+  limpiar (cb, ask) {
+    const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
+
+    const promesa = new Promise((resolve, reject) => {
+      if (cnfrm) {
+        const bjtFormKeeper = window.localStorage.getItem('FormKeeper')
+        if (bjtFormKeeper[this.estructura.identificador] !== undefined) {
+          delete bjtFormKeeper[this.estructura.identificador]
+          window.localStorage.setItem('FormKeeper', bjtFormKeeper)
+          resolve(this.estructura.limpiarCallback)
+        } else {
+          reject('No existe nada que limpiar.')
+        }
+      } else {
+        reject('Los datos siguen a salvo.')
+      }
+    })
+
+    promesa.then((callback) => {
+      if (cb !== undefined && this.isFunction(cb)) cb.call()
+      if (cb === undefined) callback.call()
+    }, (error) => {
+      console.warn(error)
+    })
+  }
   // Método estático para limpiar toda la información que esté almacenada por la librería entera
   static limpiar (cb, ask) {
     const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
@@ -259,7 +284,7 @@ class FormKeeper {
       if (cb !== undefined && this.isFunction(cb)) cb.call()
       if (cb === undefined) callback.call()
     }, (error) => {
-      console.log(error)
+      console.warn(error)
     })
   }
   // Encriptador adaptado de: http://hdeleon.net/codificar-y-decodificar-base64-en-javascript/ GRACIAS!!!

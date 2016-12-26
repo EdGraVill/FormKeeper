@@ -1,6 +1,6 @@
 {
   "name": "formkeeper",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Mantén la información de tus \"form\" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.",
   "main": "gulpfile.js",
   "dependencies": {},

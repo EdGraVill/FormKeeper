@@ -42,8 +42,10 @@
 
 ##### 5. [API](#api)
 &nbsp;&nbsp;5.1 [FormKeeper.prototype.restaurar( [callback] )](#formkeeperprototyperestaurar-callback-)  
-&nbsp;&nbsp;5.2 [FormKeeper.saveValue(index, domElValue, identificador, encriptado)](#formkeepersavevalueindex-domelvalue-identificador-encriptado)  
-&nbsp;&nbsp;5.3 [FormKeeper.saveRadio(index, domElValue, identificador, encriptado, info)](#formkeepersaveradioindex-domelvalue-identificador-encriptado-info)
+&nbsp;&nbsp;5.2 [FormKeeper.prototype.limpiar( [callback, confirmación] )]()  
+&nbsp;&nbsp;5.3 [FormKeeper.limpiar( [callback, confirmación] )]()  
+&nbsp;&nbsp;5.4 [FormKeeper.saveValue(index, domElValue, identificador, encriptado)](#formkeepersavevalueindex-domelvalue-identificador-encriptado)  
+&nbsp;&nbsp;5.5 [FormKeeper.saveRadio(index, domElValue, identificador, encriptado, info)](#formkeepersaveradioindex-domelvalue-identificador-encriptado-info)
 
 ##### 6. [Compatibilidad](#compatibilidad)
 
@@ -320,6 +322,12 @@ const salvarForm = new FormKeeper(opcionesFK)
 Método para restaurar los elementos en un momento determinado.
 
 OPCIONAL: Por parámetro se le puede asignar un callback personalizado.
+
+### FormKeeper.prototype.limpiar( [callback, confirmación] )
+
+
+### FormKeeper.limpiar( [callback, confirmación] )
+
 
 ### FormKeeper.saveValue(index, domElValue, identificador, encriptado)
 Método estático usado para salvar los datos que nos son inputs de tipo radio

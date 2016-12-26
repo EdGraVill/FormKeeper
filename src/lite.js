@@ -128,54 +128,79 @@ class FormKeeperLite {
     }
   }
   static saveValue (index, domElValue, identificador) {
-    const bjtFormKeeper = window.localStorage.getItem('FormKeeperLite') !== null ? JSON.parse(this.prototype.decode(window.localStorage.getItem('FormKeeperLite'))) : {}
+    const bjtFormKeeperLite = window.localStorage.getItem('FormKeeperLite') !== null ? JSON.parse(this.prototype.decode(window.localStorage.getItem('FormKeeperLite'))) : {}
 
-    bjtFormKeeper[identificador] = bjtFormKeeper[identificador] ? bjtFormKeeper[identificador] : []
+    bjtFormKeeperLite[identificador] = bjtFormKeeperLite[identificador] ? bjtFormKeeperLite[identificador] : []
 
-    bjtFormKeeper[identificador][index] = domElValue
+    bjtFormKeeperLite[identificador][index] = domElValue
 
-    const readyToSend = this.prototype.encode(JSON.stringify(bjtFormKeeper))
+    const readyToSend = this.prototype.encode(JSON.stringify(bjtFormKeeperLite))
 
     window.localStorage.setItem('FormKeeperLite', readyToSend)
   }
   static saveRadio (index, domElValue, identificador, info) {
-    const bjtFormKeeper = window.localStorage.getItem('FormKeeperLite') !== null ? JSON.parse(this.prototype.decode(window.localStorage.getItem('FormKeeperLite'))) : {}
+    const bjtFormKeeperLite = window.localStorage.getItem('FormKeeperLite') !== null ? JSON.parse(this.prototype.decode(window.localStorage.getItem('FormKeeperLite'))) : {}
 
-    bjtFormKeeper[identificador] = bjtFormKeeper[identificador] ? bjtFormKeeper[identificador] : []
+    bjtFormKeeperLite[identificador] = bjtFormKeeperLite[identificador] ? bjtFormKeeperLite[identificador] : []
 
-    bjtFormKeeper[identificador][index] = bjtFormKeeper[identificador][index] ? bjtFormKeeper[identificador][index] : []
+    bjtFormKeeperLite[identificador][index] = bjtFormKeeperLite[identificador][index] ? bjtFormKeeperLite[identificador][index] : []
 
     for (let i = 0; i < info[0]; i++) {
-      bjtFormKeeper[identificador][index][i] = false
+      bjtFormKeeperLite[identificador][index][i] = false
     }
 
-    bjtFormKeeper[identificador][index][info[1]] = domElValue
+    bjtFormKeeperLite[identificador][index][info[1]] = domElValue
 
-    const readyToSend = this.prototype.encode(JSON.stringify(bjtFormKeeper))
+    const readyToSend = this.prototype.encode(JSON.stringify(bjtFormKeeperLite))
 
     window.localStorage.setItem('FormKeeperLite', readyToSend)
   }
   restaurar (cb) {
     const promesa = new Promise((resolve, reject) => {
-      const bjtFormKeeper = window.localStorage.getItem('FormKeeperLite') !== null ? JSON.parse(this.decode(window.localStorage.getItem('FormKeeperLite'))) : null
+      const bjtFormKeeperLite = window.localStorage.getItem('FormKeeperLite') !== null ? JSON.parse(this.decode(window.localStorage.getItem('FormKeeperLite'))) : null
 
-      if (bjtFormKeeper === null) reject('No hay elementos que restaurar en este momento.')
+      if (bjtFormKeeperLite === null) reject('No hay elementos que restaurar en este momento.')
 
       for (let i = 0; i < this.estructura.domEls.length; i++) {
         const thisDomEl = this.estructura.domEls[i]
-        if (thisDomEl instanceof Array && bjtFormKeeper[this.estructura.identificador][i] !== undefined && bjtFormKeeper[this.estructura.identificador][i] !== null) {
+        if (thisDomEl instanceof Array && bjtFormKeeperLite[this.estructura.identificador][i] !== undefined && bjtFormKeeperLite[this.estructura.identificador][i] !== null) {
           for (let j = 0; j < thisDomEl.length; j++) {
-            if (bjtFormKeeper[this.estructura.identificador][i][j] === true) {
+            if (bjtFormKeeperLite[this.estructura.identificador][i][j] === true) {
               thisDomEl[j].checked = true
             }
           }
         } else if (thisDomEl.type === 'checkbox') {
-          thisDomEl.checked = bjtFormKeeper[this.estructura.identificador][i] ? bjtFormKeeper[this.estructura.identificador][i] : false
+          thisDomEl.checked = bjtFormKeeperLite[this.estructura.identificador][i] ? bjtFormKeeperLite[this.estructura.identificador][i] : false
         } else {
-          thisDomEl.value = bjtFormKeeper[this.estructura.identificador][i] ? bjtFormKeeper[this.estructura.identificador][i] : ''
+          thisDomEl.value = bjtFormKeeperLite[this.estructura.identificador][i] ? bjtFormKeeperLite[this.estructura.identificador][i] : ''
         }
       }
       resolve(this.estructura.restaurarCallback)
+    })
+
+    promesa.then((callback) => {
+      if (cb !== undefined && this.isFunction(cb)) cb.call()
+      if (cb === undefined) callback.call()
+    }, (error) => {
+      console.warn(error)
+    })
+  }
+  limpiar (cb, ask) {
+    const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
+
+    const promesa = new Promise((resolve, reject) => {
+      if (cnfrm) {
+        const bjtFormKeeperLite = window.localStorage.getItem('FormKeeper')
+        if (bjtFormKeeperLite[this.estructura.identificador] !== undefined) {
+          delete bjtFormKeeperLite[this.estructura.identificador]
+          window.localStorage.setItem('FormKeeper', bjtFormKeeperLite)
+          resolve(this.estructura.limpiarCallback)
+        } else {
+          reject('No existe nada que limpiar.')
+        }
+      } else {
+        reject('Los datos siguen a salvo.')
+      }
     })
 
     promesa.then((callback) => {

@@ -13,8 +13,28 @@ const v = '1.3.x'
 const headerT = `/*\n *\n * FormKeeper\n * Versión: ${v}\n * Repositorio: https://github.com/EdGraVill/FormKeeper\n * Licencia: General Public Licence 3.0\n * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.\n * 3 Versiones: Completa, Lite y Attributable.\n * Changelog al pie del código.\n *\n */\n\n`
 const footerT = '\n/*\n *\n * Lista de cambios (Changelog):\n *\n * - ¡NUEVO! Sitio Web Demostrativo\n *\n * - (DESARROLLO) Watch switcheable por parámetro con gulp\n *\n * - Algunos fallos arreglados\n *\n */\n'
 
-gulp.task('default', function () {
-  return gulp.src(['./src/main.js', './src/metodos/*.js'])
+gulp.task('default', function (w) {
+  if (w) {
+    console.log('...and now my watch begins.')
+    return watch(['./src/main.js', './src/metodos/*.js'], function () {
+      gulp.src(['./src/main.js', './src/metodos/*.js'])
+        .pipe(cache('default'))
+        .pipe(header(headerT))
+        .pipe(footer(footerT))
+        .pipe(remember('default'))
+        .pipe(concat('FormKeeper.js'))
+        .pipe(gulp.dest('./'))
+        .pipe(minify({
+          lang: 'js',
+          mode: 'minify'
+        }))
+        .pipe(rename({
+          suffix: '.min'
+        }))
+        .pipe(gulp.dest('./'))
+    })
+  } else {
+    return gulp.src(['./src/main.js', './src/metodos/*.js'])
     .pipe(cache('default'))
     .pipe(header(headerT))
     .pipe(footer(footerT))
@@ -29,10 +49,31 @@ gulp.task('default', function () {
       suffix: '.min'
     }))
     .pipe(gulp.dest('./'))
+  }
 })
 
-gulp.task('lite', function () {
-  return gulp.src('./src/lite.js')
+gulp.task('lite', function (w) {
+  if (w) {
+    console.log('...and now my watch begins.')
+    return watch('./src/lite.js', function () {
+      return gulp.src('./src/lite.js')
+        .pipe(cache('default'))
+        .pipe(header(headerT))
+        .pipe(footer(footerT))
+        .pipe(remember('default'))
+        .pipe(concat('FormKeeperLite.js'))
+        .pipe(gulp.dest('./Lite'))
+        .pipe(minify({
+          lang: 'js',
+          mode: 'minify'
+        }))
+        .pipe(rename({
+          suffix: '.min'
+        }))
+        .pipe(gulp.dest('./Lite'))
+    })
+  } else {
+    return gulp.src('./src/lite.js')
     .pipe(cache('default'))
     .pipe(header(headerT))
     .pipe(footer(footerT))
@@ -47,22 +88,48 @@ gulp.task('lite', function () {
       suffix: '.min'
     }))
     .pipe(gulp.dest('./Lite'))
+  }
 })
 
-gulp.task('attributable', function () {
-  return gulp.src('./src/attributable.js')
-    .pipe(cache('default'))
-    .pipe(header(headerT))
-    .pipe(footer(footerT))
-    .pipe(remember('default'))
-    .pipe(concat('FormKeeperAttributable.js'))
-    .pipe(gulp.dest('./Attributable'))
-    .pipe(minify({
-      lang: 'js',
-      mode: 'minify'
-    }))
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(gulp.dest('./Attributable'))
+gulp.task('attributable', function (w) {
+  if (w) {
+    console.log('...and now my watch begins.')
+    return watch('./src/attributable.js', function () {
+      gulp.src('./src/attributable.js')
+        .pipe(cache('default'))
+        .pipe(header(headerT))
+        .pipe(footer(footerT))
+        .pipe(remember('default'))
+        .pipe(concat('FormKeeperAttributable.js'))
+        .pipe(gulp.dest('./Attributable'))
+        .pipe(minify({
+          lang: 'js',
+          mode: 'minify'
+        }))
+        .pipe(rename({
+          suffix: '.min'
+        }))
+        .pipe(gulp.dest('./Attributable'))
+    })
+  } else {
+    return gulp.src('./src/attributable.js')
+      .pipe(cache('default'))
+      .pipe(header(headerT))
+      .pipe(footer(footerT))
+      .pipe(remember('default'))
+      .pipe(concat('FormKeeperAttributable.js'))
+      .pipe(gulp.dest('./Attributable'))
+      .pipe(minify({
+        lang: 'js',
+        mode: 'minify'
+      }))
+      .pipe(rename({
+        suffix: '.min'
+      }))
+      .pipe(gulp.dest('./Attributable'))
+  }
+})
+
+gulp.task('all', ['default', 'lite', 'attributable'], function (w) {
+  if (w) console.log('...and now my watch begins')
 })
