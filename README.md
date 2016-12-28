@@ -25,8 +25,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.1 [Crear una nueva instancia](#crear-una-nueva-instancia)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.2 [Guardado de los Datos](#guardado-de-los-datos)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3 [Restauración de los Datos](#restauración-de-los-datos)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3.2 [Callback](#callback)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3.3 [Autorestauración](#autorestauración)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3.1 [Callback](#callback)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3.2 [Autorestauración](#autorestauración)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4 [Limpieza de los Datos](#limpieza-de-los-datos)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4.1 [Callback](#callback-1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4.2 [Confirmación](#confirmación)   
 &nbsp;&nbsp;3.3 [FormKeeper( domEl/Lista/Opciones [, encriptacion] )](#formkeeper-domellistaopciones--encriptacion-)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.1 [domEl](#domel)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.1.1 [Nuestro HTML](#nuestro-html)  
@@ -42,10 +45,11 @@
 
 ##### 5. [API](#api)
 &nbsp;&nbsp;5.1 [FormKeeper.prototype.restaurar( [callback] )](#formkeeperprototyperestaurar-callback-)  
-&nbsp;&nbsp;5.2 [FormKeeper.prototype.limpiar( [callback, confirmación] )]()  
-&nbsp;&nbsp;5.3 [FormKeeper.limpiar( [callback, confirmación] )]()  
-&nbsp;&nbsp;5.4 [FormKeeper.saveValue(index, domElValue, identificador, encriptado)](#formkeepersavevalueindex-domelvalue-identificador-encriptado)  
-&nbsp;&nbsp;5.5 [FormKeeper.saveRadio(index, domElValue, identificador, encriptado, info)](#formkeepersaveradioindex-domelvalue-identificador-encriptado-info)
+&nbsp;&nbsp;5.2 [FormKeeper.prototype.limpiar( [callback, confirmación] )](#formkeeperprototypelimpiar-callback-confirmación-)  
+&nbsp;&nbsp;5.3 [FormKeeper.limpiar( [callback, confirmación] )](#formkeeperlimpiar-callback-confirmación-)  
+&nbsp;&nbsp;5.4 [FormKeeper.prototype.guardados()](#formkeeperprototypeguardados-)
+&nbsp;&nbsp;5.5 [FormKeeper.saveValue(index, domElValue, identificador, encriptado)](#formkeepersavevalueindex-domelvalue-identificador-encriptado)  
+&nbsp;&nbsp;5.6 [FormKeeper.saveRadio(index, domElValue, identificador, encriptado, info)](#formkeepersaveradioindex-domelvalue-identificador-encriptado-info)
 
 ##### 6. [Compatibilidad](#compatibilidad)
 
@@ -168,6 +172,55 @@ const opcionesFK = {
 }
 
 const salvarForm = new FormKeeper(opcionesFK)
+````
+
+#### Limpieza de los Datos
+El método para restaurar los valores almacenados en memoria es `FormKeeper.prototype.limpiar( [callback, confirmación] )`. También existe un [método estático](#formkeeperlimpiar-callback-confirmación-) que limpia todos los datos de FormKeeper.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeper('ejemplo')
+
+$('#ejemplo').submit(function() {
+  [...]
+
+  salvarForm.limpiar()
+})
+````
+
+##### Callback
+Además, el método admite por parámetro un callback que se ejecuta una vez los datos se hayan limpiado.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeper('ejemplo')
+
+$('#ejemplo').submit(function() {
+  [...]
+
+  salvarForm.limpiar(() => {
+    console.log('FormKeeper limpiado.')
+  })
+})
+````
+
+##### Confirmación
+También se puede elegir, por segundo parámetro y mediante un Boleano si mostrar o no un mensaje de confirmación antes de limpiar la información; además se puede personalizar el mensaje de confirmación mediante un String.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeper('ejemplo')
+
+$('#ejemplo').submit(function() {
+  [...]
+
+  salvarForm.limpiar(() => {
+    console.log('FormKeeper limpiado.')
+  }, '¿Listo para borrar la información?')
+})
 ````
 
 ### FormKeeper( domEl/Lista/Opciones [, encriptacion] )
@@ -300,6 +353,7 @@ Opción | Valores Aceptados | Valor por Defecto | Explicación
 `.encriptado` | `Boolean` | `true` | Opción que define si el guardado y la restauración de datos se hace de forma encriptada. El valor de este método tiene prioridad por sobre el valor en el segundo parámetro de `FormKeeper()`
 `.restaurarDefault` | `Boolean` | `false` | Opción que define si al cargar la librería los elementos se restauran automáticamente.
 `.restaurarCallback` | `Function` | `() => { console.log('Elementos restaurados con éxito.') }` | Es la función callback por defecto que se ejecuta después de restaurar los elementos.
+`.limpiarCallback` | `Function` | `() => { console.log('FormKeeper limpiado con éxito.') }` | Es la función callback por defecto que se ejecuta después de limpiar los elementos.
 
 ###### Ejemplo:
 ````JS
@@ -310,6 +364,9 @@ const opcionesFK = {
   restaurarDefault: true,
   restaurarCallback: () => {
     alert('Sus datos están a salvo gracias a FormKeeper')
+  },
+  limpiarCallback: () => {
+    alert('Todo limpio ahora')
   }
 }
 
@@ -323,11 +380,74 @@ Método para restaurar los elementos en un momento determinado.
 
 OPCIONAL: Por parámetro se le puede asignar un callback personalizado.
 
-### FormKeeper.prototype.limpiar( [callback, confirmación] )
+###### Ejemplo:
+````JS
+// En caso de tener un botón flotante que pueda restaurar la información, si es que existe.
+const saveTheForm = new FormKeeper()
 
+if (saveTheForm.guardados() > 0) {
+  $('#myFloatBtn').fadeIn('400').click(function() {
+    saveTheForm.restaurar(() => {
+      alert('Su información no se perdió gracias a FormKeeper')
+    })
+  })
+}
+````
+
+### FormKeeper.prototype.limpiar( [callback, confirmación] )
+Método para limpiar los datos guardados de la instancia específica.
+
+OPCIONAL: Por el primer parámetro, se le puede asignar un callback personalizado.
+
+OPCIONAL: Por el segundo parámetro, mediante un Boleano, se activa o desactiva una confirmación para limpiar los datos de la instancia. Por defecto, el valor es `true`. También, se puede optar por asignar un String con la frase de confirmación que deseé.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const saveTheForm = new FormKeeper()
+
+$('#myForm').submit(function() {
+  [...]
+
+  saveTheForm.limpiar(() => {
+    console.log('FormKeeper limpiado.')
+  }, '¿Listo para borrar la información?')
+})
+````
 
 ### FormKeeper.limpiar( [callback, confirmación] )
+Método estático para limpiar los datos guardados de todo FormKeeper. Limpia por igual información que fue encriptada, como la que no.
 
+OPCIONAL: Por el primer parámetro, se le puede asignar un callback personalizado.
+
+OPCIONAL: Por el segundo parámetro, mediante un Boleano, se activa o desactiva una confirmación para limpiar los datos de la instancia. Por defecto, el valor es `true`. También, se puede optar por asignar un String con la frase de confirmación que deseé.
+
+###### Ejemplo:
+````JS
+// En caso de colocar un botón y escucharlo con jQuery para eliminar toda la información.
+$('#myButton').click(function() {
+  FormKeeper.limpiar(() => {
+    console.log('FormKeeper limpiado.')
+  }, '¿Listo para borrar la información?')
+})
+````
+
+### FormKeeper.prototype.guardados()
+Método para conocer la cantidad de información guardada por la instancia.
+
+###### Ejemplo:
+````JS
+// En caso de tener un botón flotante que pueda restaurar la información, si es que existe.
+const saveTheForm = new FormKeeper()
+
+if (saveTheForm.guardados() > 0) {
+  $('#myFloatBtn').fadeIn('400').click(function() {
+    saveTheForm.restaurar(() => {
+      alert('Su información no se perdió gracias a FormKeeper')
+    })
+  })
+}
+````
 
 ### FormKeeper.saveValue(index, domElValue, identificador, encriptado)
 Método estático usado para salvar los datos que nos son inputs de tipo radio

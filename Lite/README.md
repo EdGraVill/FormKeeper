@@ -26,6 +26,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.1 [Crear una nueva instancia](#crear-una-nueva-instancia)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.2 [Guardado de los Datos](#guardado-de-los-datos)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3 [Restauración de los Datos](#restauración-de-los-datos)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4 [Limpieza de los Datos](#limpieza-de-los-datos)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4.2 [Callback](#callback)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4.3 [Confirmación](#confirmación)   
 &nbsp;&nbsp;3.3 [FormKeeper( domEl/Lista/Opciones [, encriptacion] )](#formkeeper-domellistaopciones--encriptacion-)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.1 [domEl](#domel)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.1.1 [Nuestro HTML](#nuestro-html)  
@@ -34,9 +37,16 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.2.1 [Nuestro HTML](#nuestro-html-1)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3.2.2 [Nuestro JS](#nuestro-js-1)  
 
-##### 4. [Compatibilidad](#compatibilidad)
+##### 4. [API](#api)
+&nbsp;&nbsp;4.1 [FormKeeper.prototype.limpiar( [callback, confirmación] )](#formkeeperprototypelimpiar-callback-confirmación-)  
+&nbsp;&nbsp;4.2 [FormKeeper.limpiar( [callback, confirmación] )](#formkeeperlimpiar-callback-confirmación-)  
+&nbsp;&nbsp;4.3 [FormKeeper.prototype.guardados()](#formkeeperprototypeguardados-)
+&nbsp;&nbsp;4.4 [FormKeeper.saveValue(index, domElValue, identificador, encriptado)](#formkeepersavevalueindex-domelvalue-identificador-encriptado)  
+&nbsp;&nbsp;4.5 [FormKeeper.saveRadio(index, domElValue, identificador, encriptado, info)](#formkeepersaveradioindex-domelvalue-identificador-encriptado-info)
 
-##### 5. [Para futuras versiones](#para-futuras-versiones)
+##### 5. [Compatibilidad](#compatibilidad)
+
+##### 6. [Para futuras versiones](#para-futuras-versiones)
 
 <h2 align="center">Ediciones</h2>
 
@@ -133,6 +143,55 @@ Los datos se restauran automáticamente al detectar que existe información para
 
 Tampoco se pueden ignorar elementos para guardar o restaurar en caso de tratarse de un elemento contenedor de inputs.
 
+#### Limpieza de los Datos
+El método para restaurar los valores almacenados en memoria es `FormKeeperLite.prototype.limpiar( [callback, confirmación] )`. También existe un [método estático](#formkeeperlimpiar-callback-confirmación-) que limpia todos los datos de FormKeeperLite.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeperLite('ejemplo')
+
+$('#ejemplo').submit(function() {
+  [...]
+
+  salvarForm.limpiar()
+})
+````
+
+##### Callback
+Además, el método admite por parámetro un callback que se ejecuta una vez los datos se hayan limpiado.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeperLite('ejemplo')
+
+$('#ejemplo').submit(function() {
+  [...]
+
+  salvarForm.limpiar(() => {
+    console.log('FormKeeperLite limpiado.')
+  })
+})
+````
+
+##### Confirmación
+También se puede elegir, por segundo parámetro y mediante un Boleano si mostrar o no un mensaje de confirmación antes de limpiar la información; además se puede personalizar el mensaje de confirmación mediante un String.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeperLite('ejemplo')
+
+$('#ejemplo').submit(function() {
+  [...]
+
+  salvarForm.limpiar(() => {
+    console.log('FormKeeperLite limpiado.')
+  }, '¿Listo para borrar la información?')
+})
+````
+
 ### FormKeeperLite( domEl/Lista )
 
 El objeto FormKeeperLite acepta por parámetro un solo valor, y puede ser:
@@ -217,6 +276,52 @@ const salvarForm = new FormKeeperLite([miNombres, miApellidos])
 const salvarForm = new FormKeeperLite(['nombres', 'apellidos']) // <- Yo certifico este método 👌👍
 ````
 
+<h2 align="center">API</h2>
+
+### FormKeeperLite.prototype.limpiar( [callback, confirmación] )
+Método para limpiar los datos guardados de la instancia específica.
+
+OPCIONAL: Por el primer parámetro, se le puede asignar un callback personalizado.
+
+OPCIONAL: Por el segundo parámetro, mediante un Boleano, se activa o desactiva una confirmación para limpiar los datos de la instancia. Por defecto, el valor es `true`. También, se puede optar por asignar un String con la frase de confirmación que deseé.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const saveTheForm = new ()
+
+$('#myForm').submit(function() {
+  [...]
+
+  saveTheForm.limpiar(() => {
+    console.log(' limpiado.')
+  }, '¿Listo para borrar la información?')
+})
+````
+
+### FormKeeperLite.limpiar( [callback, confirmación] )
+Método estático para limpiar los datos guardados de todo FormKeeperLite. Limpia por igual información que fue encriptada, como la que no.
+
+OPCIONAL: Por el primer parámetro, se le puede asignar un callback personalizado.
+
+OPCIONAL: Por el segundo parámetro, mediante un Boleano, se activa o desactiva una confirmación para limpiar los datos de la instancia. Por defecto, el valor es `true`. También, se puede optar por asignar un String con la frase de confirmación que deseé.
+
+###### Ejemplo:
+````JS
+// En caso de colocar un botón y escucharlo con jQuery para eliminar toda la información.
+$('#myButton').click(function() {
+  FormKeeperLite.limpiar(() => {
+    console.log('FormKeeperLite limpiado.')
+  }, '¿Listo para borrar la información?')
+})
+````
+
+### FormKeeperLite.saveValue(index, domElValue, identificador, encriptado)
+Método estático usado para salvar los datos que nos son inputs de tipo radio
+
+### FormKeeperLite.saveRadio(index, domElValue, identificador, encriptado, info)
+Método estático usado para salvar los datos que son inputs de tipo radio
+
 <h2 align="center">Compatibilidad</h2>
 
 Actualmente, FormKeeperLite puede entender, salvar y restaurar los siguientes DOM Elements:
@@ -247,7 +352,6 @@ Actualmente, FormKeeperLite puede entender, salvar y restaurar los siguientes DO
 Es diciembre del 2016. Los propósitos para el siguiente año, por lo menos, son los siguientes:
 
 - [x] Método para limpiar el localStorage de una instancia específica.
-- [x] Método para limpiar el localStorage de una lista de instancias específicas.
 - [x] Método estático para limpiar el localStorage de cualquier información generada por FormKeeperLite.
 - [x] Callback después de ejecutar algún método de limpieza
 - [x] Ejemplo más bonito (hahaha) e interactivo.

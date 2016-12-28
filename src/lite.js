@@ -27,7 +27,7 @@ class FormKeeperLite {
         console.log('Elementos restaurados con éxito.')
       },
       limpiarCallback: () => {
-        console.log('FormKeeper limpiado con éxito.')
+        console.log('FormKeeperLite limpiado con éxito.')
       }
     }
 
@@ -186,21 +186,26 @@ class FormKeeperLite {
     })
   }
   limpiar (cb, ask) {
-    const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
+    let cnfrm
+    if (typeof ask !== 'string' && (typeof ask !== 'boolean' || ask === undefined || ask)) {
+      cnfrm = window.confirm('¿Desea eliminar toda la información guardada por FormKeeperLite?')
+    } else {
+      cnfrm = window.confirm(ask)
+    }
 
     const promesa = new Promise((resolve, reject) => {
       if (cnfrm) {
-        const bjtFormKeeperLite = window.localStorage.getItem('FormKeeper')
+        const bjtFormKeeperLite = window.localStorage.getItem('FormKeeperLite')
         if (bjtFormKeeperLite[this.estructura.identificador] !== undefined) {
           delete bjtFormKeeperLite[this.estructura.identificador]
-          window.localStorage.setItem('FormKeeper', bjtFormKeeperLite)
-          resolve(this.estructura.limpiarCallback)
+          window.localStorage.setItem('FormKeeperLite', bjtFormKeeperLite)
         } else {
           reject('No existe nada que limpiar.')
         }
       } else {
         reject('Los datos siguen a salvo.')
       }
+      resolve(this.estructura.limpiarCallback)
     })
 
     promesa.then((callback) => {
@@ -211,15 +216,22 @@ class FormKeeperLite {
     })
   }
   static limpiar (cb, ask) {
-    const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
+    let cnfrm
+    if (typeof ask !== 'string' && (typeof ask !== 'boolean' || ask === undefined || ask)) {
+      cnfrm = window.confirm('¿Desea eliminar toda la información guardada por FormKeeperLite?')
+    } else {
+      cnfrm = window.confirm(ask)
+    }
 
     const promesa = new Promise((resolve, reject) => {
       if (cnfrm) {
         window.localStorage.removeItem('FormKeeperLite')
-        resolve(this.estructura.limpiarCallback)
       } else {
         reject('Los datos siguen a salvo.')
       }
+      resolve(() => {
+        console.log('FormKeeperLite Limpiado.')
+      })
     })
 
     promesa.then((callback) => {

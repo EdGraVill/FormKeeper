@@ -27,6 +27,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.2 [Guardado de los Datos](#guardado-de-los-datos)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3 [Restauración de los Datos](#restauración-de-los-datos)   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.3.1 [Callback](#callback)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4 [Limpieza de los Datos](#limpieza-de-los-datos)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4.1 [Callback](#callback-1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2.4.2 [Confirmación](#confirmación)   
 
 ##### 4. [Compatibilidad](#compatibilidad)
 
@@ -140,7 +143,7 @@ El método para restaurar los valores almacenados en memoria es `FormKeeper.prot
 
 ###### Ejemplo:
 ````JS
-FormKeeperLite.restaurar()
+FormKeeperAttributable.restaurar()
 ````
 
 ##### Callback
@@ -148,14 +151,57 @@ Además, el método admite por parámetro un callback que se ejecuta una vez los
 
 ###### Ejemplo:
 ````JS
-FormKeeperLite.restaurar(() => {
+FormKeeperAttributable.restaurar(() => {
   alert('¡Sus datos regresaron a como los dejó! :)')
+})
+````
+
+#### Limpieza de los Datos
+El método para restaurar los valores almacenados en memoria es `FormKeeperAttributable.limpiar( [callback, confirmación] )`.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+$('#ejemplo').submit(function() {
+  [...]
+
+  FormKeeperAttributable.limpiar()
+})
+````
+
+##### Callback
+Además, el método admite por parámetro un callback que se ejecuta una vez los datos se hayan limpiado.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+$('#ejemplo').submit(function() {
+  [...]
+
+  FormKeeperAttributable.limpiar(() => {
+    console.log('FormKeeperAttributable limpiado.')
+  })
+})
+````
+
+##### Confirmación
+También se puede elegir, por segundo parámetro y mediante un Boleano si mostrar o no un mensaje de confirmación antes de limpiar la información; además se puede personalizar el mensaje de confirmación mediante un String.
+
+###### Ejemplo:
+````JS
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+$('#ejemplo').submit(function() {
+  [...]
+
+  FormKeeperAttributable.limpiar(() => {
+    console.log('FormKeeperAttributable limpiado.')
+  }, '¿Listo para borrar la información?')
 })
 ````
 
 <h2 align="center">Compatibilidad</h2>
 
-Actualmente, FormKeeperLite puede entender, salvar y restaurar los siguientes DOM Elements:
+Actualmente, FormKeeperAttributable puede entender, salvar y restaurar los siguientes DOM Elements:
 
 * `<datalist>`
 * `<input type="checkbox">`

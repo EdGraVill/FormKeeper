@@ -156,7 +156,7 @@ class FormKeeper {
 
       window.localStorage.setItem('FormKeeper', readyToSend)
     } else {
-      window.localStorage.setItem(`${identificador + index}`, domElValue)
+      window.localStorage.setItem(`FormKeeper${identificador + index}`, domElValue)
     }
   }
   static saveRadio (index, domElValue, identificador, encriptado, info) {
@@ -177,7 +177,7 @@ class FormKeeper {
 
       window.localStorage.setItem('FormKeeper', readyToSend)
     } else {
-      const radio = window.localStorage.getItem(`${identificador + index}`) !== null ? window.localStorage.getItem(`${identificador + index}`).split(',') : []
+      const radio = window.localStorage.getItem(`FormKeeper${identificador + index}`) !== null ? window.localStorage.getItem(`FormKeeper${identificador + index}`).split(',') : []
 
       for (let i = 0; i < info[0]; i++) {
         radio[i] = false
@@ -185,7 +185,7 @@ class FormKeeper {
 
       radio[info[1]] = domElValue
 
-      window.localStorage.setItem(`${identificador + index}`, radio)
+      window.localStorage.setItem(`FormKeeper${identificador + index}`, radio)
     }
   }
   restaurar (cb) {
@@ -212,15 +212,16 @@ class FormKeeper {
       } else {
         const lCmbs = []
         for (let item in window.localStorage) {
-          if (item.includes(this.estructura.identificador)) lCmbs[item.replace(this.estructura.identificador, '')] = window.localStorage.getItem(item).includes(',') ? window.localStorage.getItem(item).split(',') : window.localStorage.getItem(item)
+          if (item.includes(`FormKeeper${this.estructura.identificador}`)) lCmbs[item.replace(`FormKeeper${this.estructura.identificador}`, '')] = window.localStorage.getItem(item).includes(',') ? window.localStorage.getItem(item).split(',') : window.localStorage.getItem(item)
         }
 
         if (lCmbs.length === 0) reject('No hay elementos que restaurar en este momento.')
 
         for (let i = 0; i < this.estructura.domEls.length; i++) {
           const thisDomEl = this.estructura.domEls[i]
-          if (thisDomEl instanceof Array) {
+          if (thisDomEl instanceof Array && lCmbs[i] !== undefined && lCmbs[i] !== null) {
             for (let j = 0; j < thisDomEl.length; j++) {
+              console.log(lCmbs)
               if (lCmbs[i][j] === 'true') {
                 thisDomEl[j].checked = true
               }
@@ -243,21 +244,36 @@ class FormKeeper {
     })
   }
   limpiar (cb, ask) {
-    const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
+    let cnfrm
+    if (typeof ask !== 'string' && (typeof ask !== 'boolean' || ask === undefined || ask)) {
+      cnfrm = window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?')
+    } else {
+      cnfrm = window.confirm(ask)
+    }
 
     const promesa = new Promise((resolve, reject) => {
-      if (cnfrm) {
-        const bjtFormKeeper = window.localStorage.getItem('FormKeeper')
-        if (bjtFormKeeper[this.estructura.identificador] !== undefined) {
-          delete bjtFormKeeper[this.estructura.identificador]
-          window.localStorage.setItem('FormKeeper', bjtFormKeeper)
-          resolve(this.estructura.limpiarCallback)
+      if (this.estructura.encriptado) {
+        if (cnfrm) {
+          const bjtFormKeeper = window.localStorage.getItem('FormKeeper')
+          if (bjtFormKeeper[this.estructura.identificador] !== undefined) {
+            delete bjtFormKeeper[this.estructura.identificador]
+            window.localStorage.setItem('FormKeeper', bjtFormKeeper)
+          } else {
+            reject('No existe nada que limpiar.')
+          }
+        } else {
+          reject('Los datos siguen a salvo.')
+        }
+      } else {
+        if (cnfrm) {
+          for (let item in window.localStorage) {
+            if (item.includes(`FormKeeper${this.estructura.identificador}`)) delete window.localStorage[item]
+          }
         } else {
           reject('No existe nada que limpiar.')
         }
-      } else {
-        reject('Los datos siguen a salvo.')
       }
+      resolve(this.estructura.limpiarCallback)
     })
 
     promesa.then((callback) => {
@@ -269,15 +285,25 @@ class FormKeeper {
   }
   // Método estático para limpiar toda la información que esté almacenada por la librería entera
   static limpiar (cb, ask) {
-    const cnfrm = typeof ask === 'string' ? window.confirm(ask) : ask === 'true' || ask !== undefined ? window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?') : true
+    let cnfrm
+    if (typeof ask !== 'string' && (typeof ask !== 'boolean' || ask === undefined || ask)) {
+      cnfrm = window.confirm('¿Desea eliminar toda la información guardada por FormKeeper?')
+    } else {
+      cnfrm = window.confirm(ask)
+    }
 
     const promesa = new Promise((resolve, reject) => {
       if (cnfrm) {
         window.localStorage.removeItem('FormKeeper')
-        resolve(this.estructura.limpiarCallback)
+        for (let item in window.localStorage) {
+          if (item.includes('FormKeeper')) delete window.localStorage[item]
+        }
       } else {
         reject('Los datos siguen a salvo.')
       }
+      resolve(() => {
+        console.log('FormKeeper Limpiado.')
+      })
     })
 
     promesa.then((callback) => {
@@ -286,6 +312,29 @@ class FormKeeper {
     }, (error) => {
       console.warn(error)
     })
+  }
+  guardados () {
+    let cuenta = 0
+
+    if (this.estructura.encriptado) {
+      const bjtFormKeeper = window.localStorage.getItem('FormKeeper') !== null ? JSON.parse(this.decode(window.localStorage.getItem('FormKeeper'))) : null
+
+      if (bjtFormKeeper[this.estructura.identificador] !== null) {
+        const keyts = Object.keys(bjtFormKeeper[this.estructura.identificador])
+        for (let i = 0; i < keyts.length; i++) {
+          if (bjtFormKeeper[this.estructura.identificador][keyts[i]] !== undefined && bjtFormKeeper[this.estructura.identificador][keyts[i]] !== null) cuenta++
+        }
+      } else {
+        cuenta = 0
+      }
+    } else {
+      const keyts = Object.keys(window.localStorage)
+      for (let i = 0; i < window.localStorage.length; i++) {
+        if (keyts[i].includes(`FormKeeper${this.estructura.identificador}`)) cuenta++
+      }
+    }
+
+    return cuenta
   }
   // Encriptador adaptado de: http://hdeleon.net/codificar-y-decodificar-base64-en-javascript/ GRACIAS!!!
   _keyStr () {
