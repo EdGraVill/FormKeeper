@@ -485,7 +485,6 @@ Actualmente, FormKeeper puede entender, salvar y restaurar los siguientes DOM El
 Es diciembre del 2016. Los propósitos para el siguiente año, por lo menos, son los siguientes:
 
 - [x] Método para limpiar el localStorage de una instancia específica.
-- [x] Método para limpiar el localStorage de una lista de instancias específicas.
 - [x] Método estático para limpiar el localStorage de cualquier información generada por FormKeeper.
 - [x] Callback después de ejecutar algún método de limpieza
 - [x] Ejemplo más bonito (hahaha) e interactivo.
