@@ -1,5 +1,3 @@
-// Remplazos extraídos y adaptados de: https://gist.github.com/mateuspadua/c0d8cb2e299deed57aa8eee38f530ef6
-
 function extend (a, b) {
   for (let key in b) {
     if (b.hasOwnProperty(key)) {
@@ -9,11 +7,7 @@ function extend (a, b) {
   return a
 }
 
-// keep default js alert to use in specific cases
 window.legacyAlert = window.alert
-
-// keep default js confirm to use in specific cases
-window.legacyConfirm = window.confirm
 
 window.alert = (m, params) => {
   swal(extend({
@@ -21,19 +15,48 @@ window.alert = (m, params) => {
   }, params || {}))
 }
 
-window.confirm = (m, params) => {
-  swal(extend({
-    text: m,
-    type: 'question',
-    showCancelButton: true,
-    cancelButtonText: 'Cancelar',
-    confirmButtonText: 'Aceptar',
-    allowEscapeKey: false,
-    allowOutsideClick: false
-  }, params || {})).then((isConfirm) => {
-    x = true
-  }, (dismiss) => {
-  // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-    return false
-  })
+// Scroll
+const cordenadas = []
+
+const getCordenadas = () => {
+  cordenadas.length = 0
+  for (let i = 0; i < (document.body.children.length - document.getElementsByTagName('script').length); i++) {
+    cordenadas.push($(document.body.children[i]).position().top)
+  }
+  console.log(cordenadas)
 }
+getCordenadas()
+
+$(window).resize(function() {
+  getCordenadas()
+})
+
+const moveUp = (c) => {
+  if (!$('body').is(':animated')) {
+    $('body').animate({scrollTop: cordenadas[c]}, 400)
+  }
+}
+
+const moveDown = (c) => {
+  if (!$('body').is(':animated')) {
+    $('body').animate({scrollTop: cordenadas[c]}, 400)
+  }
+}
+
+let posicion = $(window).scrollTop()
+let current = () => {
+  for (let i = 0; i < cordenadas.length; i++) {
+    if (posicion < cordenadas[i]) return i - 1
+  }
+}
+$(window).scroll(function(e) {
+  const scroll = $(window).scrollTop()
+  if (scroll > posicion) {
+    console.log('scrollDown')
+    moveDown(current())
+  } else {
+    console.log('scrollUp')
+    moveUp(current())
+  }
+  posicion = scroll
+})
