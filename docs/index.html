@@ -89,9 +89,10 @@
   &lt;input type="password" name="passwordR" <span class="verde">id="passwordR"</span>&gt;&lt;br&gt;&lt;br&gt;
   &lt;label for="email"&gt;Correo Electrónico: &lt;/label&gt;&lt;br&gt;
   &lt;input type="email" name="email" id="email"&gt;&lt;br&gt;&lt;br&gt;
-  &lt;button <span class="naranja">id="restaurar"</span> style="display: none"&gt;
-  &lt;button <span class="rojo">id="limpiar"</span> style="display: none"&gt;
 &lt;/form&gt;
+
+&lt;button <span class="naranja">id="restaurar"</span> style="display: none"&gt;Restaurar&lt;/button&gt;
+&lt;button <span class="rojo">id="limpiar"</span> style="display: none"&gt;Limpiar&lt;/button&gt;
 
 &lt;script src="https://cdn.jsdelivr.net/formkeeper/1/FormKeeper.min.js" charset="utf-8"&gt;&lt;/script&gt;
 &lt;script src="registro.js" charset="utf-8"&gt;&lt;/script&gt;
@@ -130,22 +131,25 @@ if (<span>saveIt</span>.guardados() > 0) {
               <div class="result">
                 <h3>Resultado</h3>
                 <div>
+                  <p>Puede recargar la página con el enlace de abajo, cerrar el navegador y volverlo a abrir, reiniciar la computadora. No importa, de cualquier forma su información está a salvo. Para recuperarla, presione el botón al final del formulario.</p>
+                  <a href="javascript:location.reload(true)">Recargar página</a><br><br>
                   <form id="ejemplo1">
-                    <label for="ej1nombres">Nombres: </label><br>
+                    <label for="ej1nombres">Nombres: </label>
                     <input type="text" name="ej1nombres" id="ej1nombres"><br><br>
-                    <label for="ej1apellidos">Apellidos: </label><br>
+                    <label for="ej1apellidos">Apellidos: </label>
                     <input type="text" name="ej1apellidos" id="ej1apellidos"><br><br>
-                    <label for="ej1username">Nombre de Usuario: </label><br>
+                    <label for="ej1username">Nombre de Usuario: </label>
                     <input type="text" name="ej1username" id="ej1username"><br><br>
-                    <label for="ej1password">Contraseña: </label><br>
+                    <label for="ej1password">Contraseña: </label>
                     <input type="password" name="ej1password" id="ej1password"><br><br>
-                    <label for="ej1passwordR">Repetir Contraseña: </label><br>
+                    <label for="ej1passwordR">Repetir Contraseña: </label>
                     <input type="password" name="ej1passwordR" id="ej1passwordR"><br><br>
-                    <label for="ej1email">Correo Electrónico: </label><br>
+                    <label for="ej1email">Correo Electrónico: </label>
                     <input type="email" name="ej1email" id="ej1email"><br><br>
-                    <button id="ej1restaurar" style="display: none">
-                    <button id="ej1limpiar" style="display: none">
                   </form>
+
+                  <button id="ej1restaurar" style="display: none">Restaurar</button>
+                  <button id="ej1limpiar" style="display: none">Limpiar</button>
                 </div>
               </div>
             </div>

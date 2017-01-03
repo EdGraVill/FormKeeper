@@ -6,7 +6,11 @@
 
 p,
 ul > li,
-blockquote {
+blockquote,
+label,
+button,
+a,
+input {
   font-family: 'Questrial';
   line-height: 2rem;
 }
@@ -15,6 +19,16 @@ blockquote {
   background-color: #ecf0f1;
   padding: 2rem;
   margin-bottom: 2rem;
+}
+
+button {
+  padding: .5rem 1rem;
+  margin: .5rem;
+  background-color: #34495e;
+  color: #ecf0f1;
+  border: 0;
+  border-radius: .3rem;
+  cursor: pointer;
 }
 
 .section {

@@ -74,7 +74,7 @@ $('#ej1restaurar').click(function () {
 
 $('#ej1limpiar').click(function () {
   ejemplo1.limpiar(() => {
-    alert(`${ejemplo1.guardados()} valores Limpiados con FormKeeper`)
+    alert(`Valores Limpiados con FormKeeper`)
     $('#ej1restaurar').fadeOut('400')
     $('#ej1limpiar').fadeOut('400')
   })
