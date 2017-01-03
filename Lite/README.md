@@ -112,6 +112,26 @@ Como cualquier otra librería, su implementación se basa en su invocación dent
 </html>
 ````
 
+¡NUEVO! Ahora, también se puede llamar desde un CDN gracias a [jsDelivr](http://www.jsdelivr.com/)
+
+* http://cdn.jsdelivr.net/formkeeper/1/FormKeeperLite.js
+* http://cdn.jsdelivr.net/formkeeper/1/FormKeeperLite.min.js
+
+###### Ejemplo:
+````HTML
+<!DOCTYPE html>
+<html>
+  <head>
+    [...]
+    <title>...</title>
+    <script src="http://cdn.jsdelivr.net/formkeeper/1/FormKeeperLite.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    [...]
+  </body>
+</html>
+````
+
 ### Uso
 
 #### Crear una nueva instancia
@@ -119,6 +139,7 @@ Para que funcione correctamente, hay que crear una nueva instancia del objeto Fo
 
 ###### Ejemplo:
 ````HTML
+<!DOCTYPE html>
 <html>
   [...]
   <body>
@@ -211,6 +232,7 @@ La forma más básica de inicializar FormKeeperLite es simplemente indicándole 
 ##### Nuestro HTML:
 ###### Ejemplo:
 ````HTML
+<!DOCTYPE html>
 <html>
   [...]
   <body>
@@ -252,6 +274,7 @@ Otra forma "básica" de inicializar FormKeeperLite es indicarle por parámetro u
 ##### Nuestro HTML:
 ###### Ejemplo:
 ````HTML
+<!DOCTYPE html>
 <html>
   [...]
   <body>
@@ -349,7 +372,7 @@ Actualmente, FormKeeperLite puede entender, salvar y restaurar los siguientes DO
 
 <h2 align="center">Para futuras versiones</h2>
 
-Es diciembre del 2016. Los propósitos para el siguiente año, por lo menos, son los siguientes:
+Es enero del 2017. Los propósitos para este año, por lo menos, siguen siendo:
 
 - [x] Método para limpiar el localStorage de una instancia específica.
 - [x] Método estático para limpiar el localStorage de cualquier información generada por FormKeeperLite.

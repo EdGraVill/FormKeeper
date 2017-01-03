@@ -11,7 +11,7 @@ const remember = require('gulp-remember')
 const v = '1.3.x'
 
 const headerT = `/*\n *\n * FormKeeper\n * Versión: ${v}\n * Repositorio: https://github.com/EdGraVill/FormKeeper\n * Licencia: General Public Licence 3.0\n * Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.\n * 3 Versiones: Completa, Lite y Attributable.\n * Changelog al pie del código.\n *\n */\n\n`
-const footerT = '\n/*\n *\n * Lista de cambios (Changelog):\n *\n * - ¡NUEVO! Sitio Web Demostrativo.\n *\n * - ¡Nueva! Página en facebook.\n *\n * - ¡Nuevo! Métodos estáticos y heredados para limpiar la memoria.\n *\n * - ¡Nuevo! Método para conocer la cantidad de información guardada.\n *\n * - READMEs con más ejemplos.\n *\n * - (DESARROLLO) Watch switcheable por parámetro con gulp.\n *\n * - Algunos fallos arreglados.\n *\n */\n'
+const footerT = '\n/*\n *\n * Lista de cambios (Changelog):\n *\n * - ¡NUEVO! Sitio Web Demostrativo.\n *\n * - ¡Nueva! Página en facebook.\n *\n * - ¡Nuevo! Métodos estáticos y heredados para limpiar la memoria.\n *\n * - ¡Nuevo! Método para conocer la cantidad de información guardada.\n *\n * - READMEs con más ejemplos.\n *\n * - (DESARROLLO) Watch switcheable por parámetro con gulp.\n *\n * - ¡Nuevo! CDN con jsDelivr.\n *\n * - Algunos fallos arreglados.\n *\n */\n'
 
 gulp.task('default', function (w) {
   if (w) {

@@ -21,85 +21,667 @@
     <meta name="theme-color" content="#18f0c0">
     <meta charset="utf-8">
     <title>FormKeeper</title>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Questrial" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/5.3.2/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/jquery.fullPage.css">
     <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/formkeeper/1/FormKeeper.min.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/formkeeper/1/FormKeeperLite.min.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/formkeeper/1/FormKeeperAttributable.min.js" charset="utf-8"></script>
   </head>
   <body>
-    <header>
+    <nav id="fkMenu">
+      <menu data-menuanchor="intro" class="active">
+        <a href="#intro"><img src="img/house.svg"></a>
+      </menu>
+      <menu data-menuanchor="fkCompleto">
+        <a href="#fkCompleto"><img src="img/fk.png"></a>
+      </menu>
+      <menu data-menuanchor="fkLite">
+        <a href="#fkLite"><img src="img/fkLite.png"></a>
+      </menu>
+      <menu data-menuanchor="fkAttributable">
+        <a href="#fkAttributable"><img src="img/fkAttributable.png"></a>
+      </menu>
+    </nav>
 
-    </header>
+    <div id="fullpage">
+      <header class="section" data-anchor="intro">
+        <img id="logo" src="img/banner.png">
+        <h2>Mantén la información de tus "form" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.</h2>
+      </header>
 
-    <section id="fk">
-      <nav id="fknav">
-        <menu to="fkex">
-          Explicación
-        </menu>
-        <menu to="fkej">
-          Ejemplo
-        </menu>
-        <menu to="fkdo">
-          Documentación
-        </menu>
-      </nav>
-      <article id="fkex">
+      <section id="fk" class="section" data-anchor="fkCompleto">
+        <nav id="fknav">
+          <menu to="fkex">
+            Explicación
+          </menu>
+          <menu to="fkej">
+            Ejemplo
+          </menu>
+          <menu to="fkdo">
+            Documentación
+          </menu>
+        </nav>
+        <article id="fkex" class="slide" data-anchor="fkex">
+          <img src="img/fk.png">
+          <p class="ex">Edición completa de FormKeeper con soporte para opciones avanzadas, además de personalización más clara y compleja.</p>
+          <p class="ex">Ideal para los usuarios más experimentados y que desean crear proyectos altamente escalables.</p>
+        </article>
+        <article id="fkej" class="slide" data-anchor="fkej">
+          <div class="ej">
+            <p>El siguiente ejemplo explica cómo salvar un form con el id <strong><span class="amarillo">"saveIt"</span></strong>. Además, ignora los campos de password, por lo que ambos se pierden; también, existe una función que determina si existen elementos salvados, y si existen, aparecen botones para restaurar o limpiar los valores salvados.</p>
+            <div class="codes">
+              <div class="code">
+                <h3>registro.html</h3>
+                <pre class="prettyprint linenums">
+&lt;form <span class="amarillo">id="saveIt"</span>&gt;
+  &lt;label for="nombres"&gt;Nombres: &lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" name="nombres" id="nombres"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="apellidos"&gt;Apellidos: &lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" name="apellidos" id="apellidos"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="username"&gt;Nombre de Usuario: &lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" name="username" id="username"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="password"&gt;Contraseña: &lt;/label&gt;&lt;br&gt;
+  &lt;input type="password" name="password" <span class="azul">id="password"</span>&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="passwordR"&gt;Repetir Contraseña: &lt;/label&gt;&lt;br&gt;
+  &lt;input type="password" name="passwordR" <span class="verde">id="passwordR"</span>&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="email"&gt;Correo Electrónico: &lt;/label&gt;&lt;br&gt;
+  &lt;input type="email" name="email" id="email"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;button <span class="naranja">id="restaurar"</span> style="display: none"&gt;
+  &lt;button <span class="rojo">id="limpiar"</span> style="display: none"&gt;
+&lt;/form&gt;
 
-      </article>
-      <article id="fkej">
+&lt;script src="https://cdn.jsdelivr.net/formkeeper/1/FormKeeper.min.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="registro.js" charset="utf-8"&gt;&lt;/script&gt;
+                </pre>
+              </div>
+              <div class="code">
+                <h3>registro.js</h3>
+                <pre class="prettyprint linenums">
+const saveIt = new FormKeeper({
+  domEl: <span class="amarillo">'saveIt'</span>,
+  ignorarDomEls: [<span class="azul">'password'</span>, <span class="verde">'passwordR'</span>]
+})
 
-      </article>
-      <article id="fkdo">
+$('<span class="naranja">#restaurar</span>').click(function () {
+  saveIt.restaurar(() => {
+    alert('Elementos Restaurados con FormKeeper')
+  })
+})
 
-      </article>
-    </section>
+$('<span class="rojo">#limpiar</span>').click(function () {
+  saveIt.limpiar(() => {
+    alert('Elementos Limpiados con FormKeeper')
+    $('#restaurar').fadeOut('400')
+    $('#limpiar').fadeOut('400')
+  })
+})
 
-    <section id="fkl">
-      <nav id="fklnav">
-        <menu to="fklex">
-          Explicación
-        </menu>
-        <menu to="fklej">
-          Ejemplo
-        </menu>
-        <menu to="fkldo">
-          Documentación
-        </menu>
-      </nav>
-      <article id="fklex">
+if (<span>saveIt</span>.guardados() > 0) {
+  $('#restaurar').fadeIn('400')
+  $('#limpiar').fadeIn('400')
+}
+                </pre>
+              </div>
+            </div>
+            <div class="results">
+              <div class="result">
+                <h3>Resultado</h3>
+                <div>
+                  <form id="ejemplo1">
+                    <label for="ej1nombres">Nombres: </label><br>
+                    <input type="text" name="ej1nombres" id="ej1nombres"><br><br>
+                    <label for="ej1apellidos">Apellidos: </label><br>
+                    <input type="text" name="ej1apellidos" id="ej1apellidos"><br><br>
+                    <label for="ej1username">Nombre de Usuario: </label><br>
+                    <input type="text" name="ej1username" id="ej1username"><br><br>
+                    <label for="ej1password">Contraseña: </label><br>
+                    <input type="password" name="ej1password" id="ej1password"><br><br>
+                    <label for="ej1passwordR">Repetir Contraseña: </label><br>
+                    <input type="password" name="ej1passwordR" id="ej1passwordR"><br><br>
+                    <label for="ej1email">Correo Electrónico: </label><br>
+                    <input type="email" name="ej1email" id="ej1email"><br><br>
+                    <button id="ej1restaurar" style="display: none">
+                    <button id="ej1limpiar" style="display: none">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="fkdo" class="slide" data-anchor="fkdo">
+          <div class="do">
+            <p>Esta documentación es una adaptación del README.md de: <a href="https://github.com/EdGraVill/FormKeeper">https://github.com/EdGraVill/FormKeeper</a></p>
+            <h2>Instalación</h2>
+            <p>Como cualquier otra librería, su implementación se basa en su invocación dentro del documento HTML. Pero esta vez, la librería, al tratarse de un Objeto, no depende de la carga del documento completo para funcionar; por lo que se puede incluir desde el <span class="bgblanco" style="padding: .3rem">&lt;head&gt;</span>.</p>
+            <div class="code">
+              <h3>Librería Descargada</h3>
+              <pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    [...]
+    &lt;title&gt;...&lt;/title&gt;
+    <span class="azul">&lt;script src="./ruta/a/FormKeeper.js" charset="utf-8"&gt;&lt;/script&gt;</span>
+  &lt;/head&gt;
+  &lt;body&gt;
+    [...]
+  &lt;/body&gt;
+&lt;/html&gt;
+              </pre>
+            </div>
+            <div class="code">
+              <h3>CDN con jsDelivr</h3>
+              <pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    [...]
+    &lt;title&gt;...&lt;/title&gt;
+    <span class="naranja">&lt;script src="https://cdn.jsdelivr.net/formkeeper/1/FormKeeper.min.js" charset="utf-8"&gt;&lt;/script&gt;</span>
+  &lt;/head&gt;
+  &lt;body&gt;
+    [...]
+  &lt;/body&gt;
+&lt;/html&gt;
+              </pre>
+            </div>
+            <h2>Uso</h2>
+            <h3>Crear una nueva instancia</h3>
+            <p>Para que funcione correctamente, hay que crear una nueva instancia del objeto FormKeeper y almacenarla en una constante.</p>
+            <div class="code">
+              <h3>Ejemplo</h3>
+              <pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  [...]
+  &lt;body&gt;
+    &lt;form id="ejemplo"&gt;
+      &lt;input type="text" name="nombres"&gt;
+      &lt;input type="text" name="apellidos"&gt;
+    &lt;/form&gt;
 
-      </article>
-      <article id="fklej">
+    &lt;script type="text/javascript"&gt;
+      const salvarForm = new FormKeeper( domEl/Lista/Opciones [, encriptacion] )
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+              </pre>
+            </div>
+            <h3>Guardado de los Datos</h3>
+            <p>Los datos se guardan automáticamente al detectar que ha cambiado el input, ya sea después de agregarle un nuevo caracter a los que son de entrada de texto, o al cambio para los que son de interacción.</p>
+            <h3>Restauración de los Datos</h3>
+            <p>El método para restaurar los valores almacenados en memoria es <span class="bgblanco">FormKeeper.prototype.restaurar( callback )</span>.</p>
+            <div class="code">
+              <h3>Ejemplo</h3>
+              <pre class="prettyprint linenums">
+const salvarForm = new FormKeeper('ejemplo')
 
-      </article>
-      <article id="fkldo">
+salvarForm.restaurar()
+              </pre>
+            </div>
+            <div class="code">
+              <p>Además, el método admite por parámetro un callback que se ejecuta una vez los datos se hayan restaurado.</p>
+              <h3>Ejemplo con Callback</h3>
+              <pre class="prettyprint linenums">
+const salvarForm = new FormKeeper('ejemplo')
 
-      </article>
-    </section>
+salvarForm.restaurar(() => {
+  alert('¡Sus datos regresaron a como los dejó! :)')
+})
+              </pre>
+            </div>
+            <div class="code">
+              <p>También, los Datos pueden ser restaurados de forma automática al cargar la página. Para conseguirlo, es necesario ingresar por primer parámetro un objeto con las opciones deseadas.</p>
+              <h3>Ejemplo con Autorestauración</h3>
+              <pre class="prettyprint linenums">
+const opcionesFK = {
+  domEl: 'ejemplo',
+  restaurarDefault: true // <-- Por defecto su valores es 'false'
+}
 
-    <section id="fka">
-      <nav id="fkanav">
-        <menu to="fkaex">
-          Explicación
-        </menu>
-        <menu to="fkaej">
-          Ejemplo
-        </menu>
-        <menu to="fkado">
-          Documentación
-        </menu>
-      </nav>
-      <article id="fkaex">
+const salvarForm = new FormKeeper(opcionesFK)
+              </pre>
+            </div>
+            <h3>Limpieza de los Datos</h3>
+            <p>El método para restaurar los valores almacenados en memoria es <span class="bgblanco">FormKeeper.prototype.limpiar( [callback, confirmación] )</span>. También existe un método estático que limpia todos los datos de FormKeeper.</p>
+            <div class="code">
+              <h3>Ejemplo</h3>
+              <pre class="prettyprint linenums">
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeper('ejemplo')
 
-      </article>
-      <article id="fkaej">
+$('#ejemplo').submit(function() {
+  [...]
 
-      </article>
-      <article id="fkado">
+  salvarForm.limpiar()
+})
+              </pre>
+            </div>
+            <div class="code">
+              <p>Además, el método admite por parámetro un callback que se ejecuta una vez los datos se hayan limpiado.</p>
+              <h3>Ejemplo con Callback</h3>
+              <pre class="prettyprint linenums">
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeper('ejemplo')
 
-      </article>
-    </section>
+$('#ejemplo').submit(function() {
+  [...]
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/sweetalert2/5.3.2/sweetalert2.min.js"></script>
+  salvarForm.limpiar(() => {
+    console.log('FormKeeper limpiado.')
+  })
+})
+              </pre>
+            </div>
+            <div class="code">
+              <p>También se puede elegir, por segundo parámetro y mediante un Boleano si mostrar o no un mensaje de confirmación antes de limpiar la información; además se puede personalizar el mensaje de confirmación mediante un String.</p>
+              <h3>Confirmación de Limpieza</h3>
+              <pre class="prettyprint linenums">
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const salvarForm = new FormKeeper('ejemplo')
+
+$('#ejemplo').submit(function() {
+  [...]
+
+  salvarForm.limpiar(() => {
+    console.log('FormKeeper limpiado.')
+  }, '¿Listo para borrar la información?')
+})
+              </pre>
+            </div>
+            <h2>FormKeeper( domEl/Lista/Opciones [, encriptacion] )</h2>
+            <p>El objeto FormKeeper acepta por parámetro dos valores. el primero es obligatorio, y puede ser:</p>
+            <ul>
+              <li>Un DOM Element que contenga múltiples inputs y sus variantes.</li>
+              <li>Un DOM Element que sea un simple <span class="bgblanco">&lt;input&gt;</span>, <span class="bgblanco">&lt;select&gt;</span>, <span class="bgblanco">&lt;textarea&gt;</span>, etc. Esto en caso de sólo querer mantener seguro un solo DOM Element</li>
+              <li>Un Array como lista de múltiples y específicos DOM Elements.</li>
+              <li>Un objeto con Opciones Avanzadas</li>
+            </ul>
+            <p>El segundo parámetro es opcional, y recibe como valor un Boolean, que por defecto se encuentra como true. Esto para indicar si la información antes de almacenarse se encriptará.</p>
+            <h3>domEl</h3>
+            <p>La forma más básica de inicializar FormKeeper es simplemente indicándole por parámetro el id u objeto almacenado de:</p>
+            <ul>
+              <li><span class="bgblanco">&lt;form&gt;</span>, <span class="bgblanco">&lt;div&gt;</span>, etc; contenedor de inputs y sus variantes.</li>
+              <li>DOM Element simple (Que sea un input o sus variantes).</li>
+            </ul>
+            <div class="code">
+              <h3>HTML de Ejemplo</h3>
+              <pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  [...]
+  &lt;body&gt;
+    &lt;form id="ejemplo"&gt;
+      &lt;input id="nombres" type="text" name="nombres"&gt;
+      &lt;input id="apellidos" type="text" name="apellidos"&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+              </pre>
+            </div>
+            <p>Para nuestro .js podemos encontrarnos con dos situaciónes:</p>
+            <div class="code">
+              <p>En caso de querer mantener a salvo todo el form.</p>
+              <pre class="prettyprint linenums">
+// Indicando un objeto almacenado:
+const miForm = document.getElementById('ejemplo')
+
+const salvarForm = new FormKeeper(miForm)
+
+// Indicando el id de nuestro form:
+const salvarForm = new FormKeeper('ejemplo') // <- Yo certifico este método 👌👍
+              </pre>
+            </div>
+            <div class="code">
+              <p>En caso de sólo mantener a salvo un DOM Element específico.</p>
+              <pre class="prettyprint linenums">
+// Indicando un objeto almacenado:
+const miNombres = document.getElementById('nombres')
+
+const salvarForm = new FormKeeper(miNombres)
+
+// Indicando el id de nuestro elemento específico:
+const salvarForm = new FormKeeper('apellidos') // <- Yo certifico este método 👌👍
+              </pre>
+            </div>
+            <h3>Lista (Array)</h3>
+            <p>Otra forma "básica" de inicializar FormKeeper es indicarle por parámetro un Array con los id u objetos almacenados de los DOM Elements específicos</p>
+            <blockquote>Si uno de los elementos de la lista es un contenedor, puede haber consecuencias catastróficas. Para esos caso, recomiendo ampliamente usar el objeto de Opciones Avanzadas e indicar el DOM Elements simples a ignorar</blockquote>
+            <div class="code">
+              <h3>HTML de Ejemplo</h3>
+              <pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  [...]
+  &lt;body&gt;
+    &lt;form id="ejemplo"&gt;
+      &lt;input id="nombres" type="text" name="nombres"&gt;
+      &lt;input id="apellidos" type="text" name="apellidos"&gt;
+      &lt;input type="text" name="noLoQuiero"&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+              </pre>
+            </div>
+            <div class="code">
+              <h3>JS de Ejemplo</h3>
+              <pre class="prettyprint linenums">
+// Indicando con objetos almacenados:
+const miNombres = document.getElementById('nombres')
+const miApellidos = document.getElementById('apellidos')
+
+const salvarForm = new FormKeeper([miNombres, miApellidos])
+
+// Indicando los id de nuestros form:
+const salvarForm = new FormKeeper(['nombres', 'apellidos']) // <- Yo certifico este método 👌👍
+              </pre>
+            </div>
+            <h3>Objeto de Opciones Avanzadas</h3>
+            <p>El guardar y restaurar datos guardados puede ser tan complejo como el desarrollador quiera, por lo cual una característica experimental es la personalización de los eventos con un objeto.</p>
+            <div class="code">
+              <h3>HTML de Ejemplo</h3>
+              <pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  [...]
+  &lt;body&gt;
+    &lt;form id="ejemplo"&gt;
+      &lt;input id="nombres" type="text" name="nombres"&gt;
+      &lt;input id="apellidos" type="text" name="apellidos"&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+              </pre>
+            </div>
+            <div class="code">
+              <h3>JS de Ejemplo</h3>
+              <pre class="prettyprint linenums">
+// Indicando un objeto almacenado:
+const miForm = document.getElementById('ejemplo')
+
+const opcionesFK = { domEl: miForm }
+
+const salvarForm = new FormKeeper(opcionesFK)
+
+// Indicando el id de nuestro form:
+const opcionesFK = { domEl: 'ejemplo' } // <- Yo certifico este método 👌👍
+
+const salvarForm = new FormKeeper(opcionesFK) // <- Y con todo y esto 👌👍
+              </pre>
+            </div>
+            <p><span class="bgblanco">.domEl</span> Admite al igual que como es indicado por parámetro, un contenedor un elemento específico o una lista de elementos específicos.</p>
+            <h2>Opciones Avanzadas</h2>
+            <table class="pure-table">
+              <thead>
+                <tr>
+                  <th>Opción</th>
+                  <th>Valores Aceptados</th>
+                  <th>Valor por Defecto</th>
+                  <th>Explicación</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="pure-table-odd">
+                  <td>.domEl</td>
+                  <td>String / Array / Object / Variable</td>
+                  <td>null</td>
+                  <td>Puede ser el DOM Element contenedor, el DOM Element específico, o una lista de los DOM Elements específicos.</td>
+                </tr>
+                <tr>
+                  <td>.domEls</td>
+                  <td>Array</td>
+                  <td>[]</td>
+                  <td>PELIGROSO: Es el lugar donde se almacenan los DOM Elements con los que se va a trabajar. Para indicar una lista, fijar un Array en <span class="bgblanco">.domEl</span>.</td>
+                </tr>
+                <tr class="pure-table-odd">
+                  <td>.ignorarDomEls</td>
+                  <td>Array</td>
+                  <td>[]</td>
+                  <td>Lista de DOM Elements que serán ignorados durante el proceso de guardado y de restauración. Esto claro, en caso que <span class="bgblanco">.domEl</span> fuera un contenedor.</td>
+                </tr>
+                <tr>
+                  <td>.ignorarTipos</td>
+                  <td>Array</td>
+                  <td>['submit', 'reset', 'button', 'file', 'image']</td>
+                  <td>PELIGROSO: Es la lista donde se almacenan los tipos de input que no es posible entenderse hasta el momento, por favor, a menos que sepa lo que hace, no lo cambie.</td>
+                </tr>
+                <tr class="pure-table-odd">
+                  <td>.elementos</td>
+                  <td>Array</td>
+                  <td>['INPUT', 'SELECT', 'TEXTAREA', 'DATALIST']</td>
+                  <td>PELIGROSO: Es la lista de tagNames que FormKeeper entiende y puede procesar a la perfección. Por favor, a menos que sepa lo que hace, no lo cambie.</td>
+                </tr>
+                <tr>
+                  <td>.ignorarElementos</td>
+                  <td>Array</td>
+                  <td>[]</td>
+                  <td>Lista de los tagNames que se van a ignorar durante el proceso de ejecución.</td>
+                </tr>
+                <tr class="pure-table-odd">
+                  <td>.encriptado</td>
+                  <td>Boolean</td>
+                  <td>true</td>
+                  <td>Opción que define si el guardado y la restauración de datos se hace de forma encriptada. El valor de este método tiene prioridad por sobre el valor en el segundo parámetro de <span class="bgblanco">FormKeeper()</span></td>
+                </tr>
+                <tr>
+                  <td>.restaurarDefault</td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Opción que define si al cargar la librería los elementos se restauran automáticamente.</td>
+                </tr>
+                <tr class="pure-table-odd">
+                  <td>.restaurarCallback</td>
+                  <td>Function</td>
+                  <td>() => { console.log('Elementos restaurados con éxito.') }</td>
+                  <td>Es la función callback por defecto que se ejecuta después de restaurar los elementos.</td>
+                </tr>
+                <tr>
+                  <td>.limpiarCallback</td>
+                  <td>Function</td>
+                  <td>() => { console.log('FormKeeper limpiado con éxito.') }</td>
+                  <td>Es la función callback por defecto que se ejecuta después de limpiar los elementos.</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code">
+              <h3>Ejemplo</h3>
+              <pre class="prettyprint linenums">
+const opcionesFK = {
+  domEl: 'ejemplo',
+  ignorarDomEls: ['nombres'],
+  encriptado: true,
+  restaurarDefault: true,
+  restaurarCallback: () => {
+    alert('Sus datos están a salvo gracias a FormKeeper')
+  },
+  limpiarCallback: () => {
+    alert('Todo limpio ahora')
+  }
+}
+
+const salvarForm = new FormKeeper(opcionesFK)
+              </pre>
+            </div>
+            <h2>API</h2>
+            <h3>FormKeeper.prototype.restaurar( [callback] )</h3>
+            <p>Método para restaurar los elementos en un momento determinado.</p>
+            <p>OPCIONAL: Por parámetro se le puede asignar un callback personalizado.</p>
+            <div class="code">
+              <h3>Ejemplo</h3>
+              <pre class="prettyprint linenums">
+// En caso de tener un botón flotante que pueda restaurar la información, si es que existe.
+const saveTheForm = new FormKeeper()
+
+if (saveTheForm.guardados() > 0) {
+  $('#myFloatBtn').fadeIn('400').click(function() {
+    saveTheForm.restaurar(() => {
+      alert('Su información no se perdió gracias a FormKeeper')
+    })
+  })
+}
+              </pre>
+            </div>
+            <h3>FormKeeper.prototype.limpiar( [callback, confirmación] )</h3>
+            <p>Método para limpiar los datos guardados de la instancia específica.</p>
+            <p>OPCIONAL: Por el primer parámetro, se le puede asignar un callback personalizado.</p>
+            <p>OPCIONAL: Por el segundo parámetro, mediante un Boleano, se activa o desactiva una confirmación para limpiar los datos de la instancia. Por defecto, el valor es true. También, se puede optar por asignar un String con la frase de confirmación que deseé.</p>
+            <div class="code">
+              <h3>Ejemplo</h3>
+              <pre class="prettyprint linenums">
+// En caso de usar jQuery para escuchar eventos y borrar la información del form en cuestión
+const saveTheForm = new FormKeeper()
+
+$('#myForm').submit(function() {
+  [...]
+
+  saveTheForm.limpiar(() => {
+    console.log('FormKeeper limpiado.')
+  }, '¿Listo para borrar la información?')
+})
+              </pre>
+            </div>
+            <h3>FormKeeper.limpiar( [callback, confirmación] )</h3>
+            <p>Método estático para limpiar los datos guardados de todo FormKeeper. Limpia por igual información que fue encriptada, como la que no.</p>
+            <p>OPCIONAL: Por el primer parámetro, se le puede asignar un callback personalizado.</p>
+            <p>OPCIONAL: Por el segundo parámetro, mediante un Boleano, se activa o desactiva una confirmación para limpiar los datos de la instancia. Por defecto, el valor es true. También, se puede optar por asignar un String con la frase de confirmación que deseé.</p>
+            <div class="code">
+              <h3>Ejemplo</h3>
+              <pre class="prettyprint linenums">
+// En caso de colocar un botón y escucharlo con jQuery para eliminar toda la información.
+$('#myButton').click(function() {
+  FormKeeper.limpiar(() => {
+    console.log('FormKeeper limpiado.')
+  }, '¿Listo para borrar la información?')
+})
+              </pre>
+            </div>
+            <h3>FormKeeper.prototype.guardados()</h3>
+            <p>Método para conocer la cantidad de información guardada por la instancia.</p>
+            <div class="code">
+              <h3>Ejemplo</h3>
+              <pre class="prettyprint linenums">
+// En caso de tener un botón flotante que pueda restaurar la información, si es que existe.
+const saveTheForm = new FormKeeper()
+
+if (saveTheForm.guardados() > 0) {
+  $('#myFloatBtn').fadeIn('400').click(function() {
+    saveTheForm.restaurar(() => {
+      alert('Su información no se perdió gracias a FormKeeper')
+    })
+  })
+}
+              </pre>
+            </div>
+            <h3>FormKeeper.saveValue(index, domElValue, identificador, encriptado)</h3>
+            <p>Método estático usado para salvar los datos que nos son inputs de tipo radio</p>
+            <h3>FormKeeper.saveRadio(index, domElValue, identificador, encriptado, info)</h3>
+            <p>Método estático usado para salvar los datos que son inputs de tipo radio</p>
+            <h2>Compatibilidad</h2>
+            <p>Actualmente, FormKeeper puede entender, salvar y restaurar los siguientes DOM Elements:</p>
+            <ul>
+              <li>&lt;datalist&gt;</li>
+              <li>&lt;input type="checkbox"&gt;</li>
+              <li>&lt;input type="color"&gt;</li>
+              <li>&lt;input type="date"&gt;</li>
+              <li>&lt;input type="datetime-local"&gt;</li>
+              <li>&lt;input type="email"&gt;</li>
+              <li>&lt;input type="hidden"&gt;</li>
+              <li>&lt;input type="month"&gt;</li>
+              <li>&lt;input type="number"&gt;</li>
+              <li>&lt;input type="password"&gt;</li>
+              <li>&lt;input type="radio"&gt;</li>
+              <li>&lt;input type="range"&gt;</li>
+              <li>&lt;input type="search"&gt;</li>
+              <li>&lt;input type="tel"&gt;</li>
+              <li>&lt;input type="text"&gt;</li>
+              <li>&lt;input type="time"&gt;</li>
+              <li>&lt;input type="url"&gt;</li>
+              <li>&lt;input type="week"&gt;</li>
+              <li>&lt;select&gt;</li>
+              <li>&lt;textarea&gt;</li>
+            </ul>
+            <h2>Para futuras versiones</h2>
+            <p>Es enero del 2017. Los propósitos para este año, por lo menos, siguen siendo:</p>
+            <ul>
+              <li><input type="checkbox" checked> Método para limpiar el localStorage de una instancia específica.</li>
+              <li><input type="checkbox" checked> Método estático para limpiar el localStorage de cualquier información generada por FormKeeper.</li>
+              <li><input type="checkbox" checked> Callback después de ejecutar algún método de limpieza</li>
+              <li><input type="checkbox" checked> Ejemplo más bonito (hahaha) e interactivo.</li>
+              <li><input type="checkbox"> Capacidad de desactivar y activar autoguardado de Datos.</li>
+              <li><input type="checkbox"> Método para guardar Datos de forma manual.</li>
+              <li><input type="checkbox"> Callback después de ejecutar algún método de guardado de datos.</li>
+              <li><input type="checkbox"> Soporte para entender, salvar y restaurar contenteditable Attribute.</li>
+              <li><input type="checkbox"> Agregar soporte para ignorar por selectores.</li>
+              <li><input type="checkbox"> Agregar los recursos usados en el README.</li>
+              <li><input type="checkbox"> Tener traducciones para distintos idiomas de la documentación.</li>
+              <li><input type="checkbox"> Invitar a mucha gente para contribuir y también para que lo apliquen a su proyecto.</li>
+              <li><input type="checkbox"> Listar los sitios que usan FormKeeper en el README.</li>
+              <li><input type="checkbox"> Inspirar a más programadores a seguir mejorando internet.</li>
+              <li><input type="checkbox"> Restauración independiente de datos.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section id="fkl" class="section" data-anchor="fkLite">
+        <nav id="fklnav">
+          <menu to="fklex">
+            Explicación
+          </menu>
+          <menu to="fklej">
+            Ejemplo
+          </menu>
+          <menu to="fkldo">
+            Documentación
+          </menu>
+        </nav>
+        <article id="fklex" class="slide" data-anchor="fklex">
+          <img src="img/fkLite.png">
+          <p class="ex">Edición sin opciones avanzadas, planeada para la implementación y uso rápido, sencillo y sin exceso de código. No contiene funciones, por lo cual, el guardado y restablecimiento de datos es automático.</p>
+          <p class="ex">Ideal para los usuarios más prácticos y/o con tiempo limitado de desarrollo.</p>
+        </article>
+        <article id="fklej" class="slide" data-anchor="fklej">
+
+        </article>
+        <article id="fkldo" class="slide" data-anchor="fkldo">
+
+        </article>
+      </section>
+
+      <section id="fka" class="section" data-anchor="fkAttributable">
+        <nav id="fkanav">
+          <menu to="fkaex">
+            Explicación
+          </menu>
+          <menu to="fkaej">
+            Ejemplo
+          </menu>
+          <menu to="fkado">
+            Documentación
+          </menu>
+        </nav>
+        <article id="fkaex" class="slide" data-anchor="fkaex">
+          <img src="img/fkAttributable.png">
+          <p class="ex">Edición que se implementa sin utilizar ninguna linea de código, salvo para la restauración de los datos; sólo agregando el attributo <span class="amarillo">FormKeeper</span> al o los Elementos del DOM con los que se desea trabajar.</p>
+          <p class="ex">Ideal para los usuarios novatos o sin conocimientos en JS.</p>
+        </article>
+        <article id="fkaej" class="slide" data-anchor="fkaej">
+
+        </article>
+        <article id="fkado" class="slide" data-anchor="fkado">
+
+        </article>
+      </section>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/5.3.2/sweetalert2.min.js" charset="utf-8"></script>
+    <script src="js/vendors/scrolloverflow.min.js" charset="utf-8"></script>
+    <script src="js/jquery.fullPage.min.js" charset="utf-8"></script>
     <script src="js/main.js" charset="utf-8"></script>
   </body>
 </html>

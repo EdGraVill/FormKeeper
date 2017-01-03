@@ -365,6 +365,8 @@ class FormKeeperLite {
  *
  * - (DESARROLLO) Watch switcheable por parámetro con gulp.
  *
+ * - ¡Nuevo! CDN con jsDelivr.
+ *
  * - Algunos fallos arreglados.
  *
  */

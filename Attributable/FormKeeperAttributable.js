@@ -336,6 +336,8 @@ for (let i = 0; i < fk.domEls.length; i++) {
  *
  * - (DESARROLLO) Watch switcheable por parámetro con gulp.
  *
+ * - ¡Nuevo! CDN con jsDelivr.
+ *
  * - Algunos fallos arreglados.
  *
  */

@@ -99,6 +99,26 @@ Como cualquier otra librería, su implementación se basa en su invocación dent
 </html>
 ````
 
+¡NUEVO! Ahora, también se puede llamar desde un CDN gracias a [jsDelivr](http://www.jsdelivr.com/)
+
+* http://cdn.jsdelivr.net/formkeeper/1/FormKeeperAttributable.js
+* http://cdn.jsdelivr.net/formkeeper/1/FormKeeperAttributable.min.js
+
+###### Ejemplo:
+````HTML
+<!DOCTYPE html>
+<html>
+  <head>
+    [...]
+    <title>...</title>
+    <script src="http://cdn.jsdelivr.net/formkeeper/1/FormKeeperAttributable.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    [...]
+  </body>
+</html>
+````
+
 ### Uso
 
 #### Asignar el atributo FormKeeper a nuestros elementos
@@ -107,6 +127,7 @@ Para que funcione correctamente, hay que asignar en el HTML el atributo `FormKee
 Se puede agregar el atributo a un elemento contenedor de diversos inputs.
 ###### Ejemplo:
 ````HTML
+<!DOCTYPE html>
 <html>
   [...]
   <body>
@@ -121,6 +142,7 @@ Se puede agregar el atributo a un elemento contenedor de diversos inputs.
 O bien, se puede agregar el atributo a elementos específicos del DOM por separado
 ###### Ejemplo:
 ````HTML
+<!DOCTYPE html>
 <html>
   [...]
   <body>
@@ -226,7 +248,7 @@ Actualmente, FormKeeperAttributable puede entender, salvar y restaurar los sigui
 
 <h2 align="center">Para futuras versiones</h2>
 
-Es diciembre del 2016. Los propósitos para el siguiente año, por lo menos, son los siguientes:
+Es enero del 2017. Los propósitos para este año, por lo menos, siguen siendo:
 
 - [x] Método estático para limpiar el localStorage de cualquier información generada por FormKeeperAttributable.
 - [x] Callback después de ejecutar algún método de limpieza

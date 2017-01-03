@@ -4,12 +4,412 @@
   box-sizing: border-box;
 }
 
-body {
-  overflow-x: hidden;
+p,
+ul > li,
+blockquote {
+  font-family: 'Questrial';
+  line-height: 2rem;
 }
 
-header,
-section {
-  width: 100vw;
-  height: 100vh;
+blockquote {
+  background-color: #ecf0f1;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+}
+
+.section > nav {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  width: 100%;
+  z-index: 999;
+}
+
+.section > nav > menu {
+  margin: 0 2rem;
+  padding: 1rem;
+  font-family: sans-serif;
+  background-color: #34495e;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#fkMenu {
+  position: fixed;
+  top: 30%;
+  right: 1rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 40%;
+  z-index: 999;
+}
+
+#fkMenu > menu {
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: .4s all ease-out;
+}
+
+#fkMenu > menu.active {
+  transform: scale(1.5);
+}
+
+#fkMenu > menu > a {
+  width: 100%;
+  height: 100%;
+}
+
+#fkMenu > menu > a > img {
+  width: 100%;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Fredoka One';
+  text-align: center;
+}
+
+.fp-tableCell {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+  max-height: 90vh;
+}
+
+.fp-scrollable {
+  width: 90%;
+}
+
+.fp-scroller {
+  padding-top: 15vh;
+  padding-bottom: 80vh;
+}
+
+header * {
+  margin: 1rem 0;
+}
+
+header img {
+  max-height: 40vh;
+}
+
+header h2 {
+  width: 90vw;
+  max-width: 1024px;
+  line-height: 2.5rem;
+}
+
+.ex {
+  width: 90vw;
+  max-width: 512px;
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  padding: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.5rem;
+}
+
+img + .ex {
+  margin-top: 1rem;
+}
+
+.ex:first-child {
+  border-radius: 1rem 1rem 0 0;
+}
+
+.ex:last-child {
+  border-radius: 0 0 1rem 1rem;
+}
+
+.ej,
+.do {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.ej > p,
+.do > p {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.codes,
+.results {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 48%;
+  height: 100%;
+}
+
+.results {
+  align-items: stretch;
+}
+
+.code,
+.result {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: .5rem 0;
+}
+
+.code > h3,
+.result > h3 {
+  width: 100%;
+  background-color: #ecf0f1;
+  border: 2px solid #bdc3c7;
+  padding: .5rem 0;
+  font-family: Questrial;
+  font-weight: bold;
+}
+
+.result > div {
+  width: 100%;
+  border: 2px solid #bdc3c7;
+  border-top: 0;
+  padding: 1rem .5rem;
+}
+
+.code > p {
+  font-size: 1rem;
+  line-height: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.code > pre {
+  position: relative;
+  padding: 1rem 1rem 0 2.3rem;
+  overflow-x: auto;
+}
+
+.code > pre:not(:nth-child(1)),
+.code > pre:not(:nth-child(2)) {
+  margin-bottom: 1rem;
+}
+
+.code > pre li:hover {
+  background-color: rgba(255,255,255,.05)
+}
+
+.code > pre::before {
+  content: '';
+  position: absolute;
+  background-color: rgba(0,0,0,.2);
+  width: 2.1rem;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.do > h2 {
+  width: 100%;
+  text-align: center;
+}
+
+.do > h2:not(:first-child) {
+  margin-top: 3rem;
+}
+
+.do > h3,
+.do > h4,
+.do > h5,
+.do > h6 {
+  width: 100%;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.do > .code {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.do > ul {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+
+
+span.amarillo {
+  border: 2px solid #f1c40f;
+}
+
+span.rojo {
+  border: 2px solid #e74c3c;
+}
+
+span.azul {
+  border: 2px solid #3498db;
+}
+
+span.verde {
+  border: 2px solid #2ecc71;
+}
+
+span.naranja {
+  border: 2px solid #e67e22;
+}
+
+span.morado {
+  border: 2px solid #9b59b6;
+}
+
+span.turquesa {
+  border: 2px solid #1abc9c;
+}
+
+span.blanco {
+  border: 2px solid #ecf0f1;
+}
+
+span.gris {
+  border: 2px solid #95a5a6;
+}
+
+span.marino {
+  border: 2px solid #34495e;
+}
+
+span.bgamarillo {
+  background-color: #f1c40f;
+  padding: .3rem;
+}
+
+span.bgrojo {
+  background-color: #e74c3c;
+  padding: .3rem;
+}
+
+span.bgazul {
+  background-color: #3498db;
+  padding: .3rem;
+}
+
+span.bgverde {
+  background-color: #2ecc71;
+  padding: .3rem;
+}
+
+span.bgnaranja {
+  background-color: #e67e22;
+  padding: .3rem;
+}
+
+span.bgmorado {
+  background-color: #9b59b6;
+  padding: .3rem;
+}
+
+span.bgturquesa {
+  background-color: #1abc9c;
+  padding: .3rem;
+}
+
+span.bgblanco {
+  background-color: #ecf0f1;
+  padding: .3rem;
+}
+
+span.bggris {
+  background-color: #95a5a6;
+  padding: .3rem;
+}
+
+span.bgmarino {
+  background-color: #34495e;
+  padding: .3rem;
+}
+
+.pure-table {
+  font-family: 'Questrial';
+  empty-cells: show;
+  border: 1px solid #cbcbcb;
+  margin: 1rem auto;
+}
+
+.pure-table caption {
+  color: #000;
+  font: italic 85%/1 arial, sans-serif;
+  padding: 1em 0;
+  text-align: center;
+}
+
+.pure-table td, .pure-table th {
+  border: 1px solid #cbcbcb;
+  font-size: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: .5em 1em;
+}
+
+.pure-table td:first-child, .pure-table th:first-child {
+  border-left-width: 0;
+}
+
+.pure-table thead {
+  background-color: #e0e0e0;
+  color: #000;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.pure-table thead th {
+  text-align: center;
+}
+
+.pure-table td {
+  background-color: transparent;
+  line-height: 1.2rem;
+}
+
+.pure-table-odd td, .pure-table-striped tr:nth-child(2n-1) td {
+  background-color: #f2f2f2;
+}
+
+.pure-table-bordered td {
+  border-bottom: 1px solid #cbcbcb;
+}
+
+.pure-table-bordered tbody>tr:last-child>td {
+  border-bottom-width: 0;
+}
+
+.pure-table-horizontal td, .pure-table-horizontal th {
+    border-width: 0 0 1px;
+  border-bottom: 1px solid #cbcbcb;
+}
+
+.pure-table-horizontal tbody>tr:last-child>td {
+  border-bottom-width: 0;
 }

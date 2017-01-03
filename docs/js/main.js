@@ -1,62 +1,88 @@
-function extend (a, b) {
-  for (let key in b) {
-    if (b.hasOwnProperty(key)) {
-      a[key] = b[key]
-    }
-  }
-  return a
-}
-
 window.legacyAlert = window.alert
 
 window.alert = (m, params) => {
-  swal(extend({
+  swal($.extend({
     text: m
   }, params || {}))
 }
 
-// Scroll
-const cordenadas = []
+$(document).ready(function () {
+  $('#fullpage').fullpage({
+    // Navegación
+    anchors: ['intro', 'fkCompleto', 'fkLite', 'fkAttributable'],
+    menu: '#fkMenu',
+    slidesNavigation: false,
+    navigation: false,
+    navigationTooltips: ['Intro', 'FormKeeper Completo', 'FormKeeper Lite', 'FormKeeper Attributable'],
+    slidesNavPosition: 'bottom',
 
-const getCordenadas = () => {
-  cordenadas.length = 0
-  for (let i = 0; i < (document.body.children.length - document.getElementsByTagName('script').length); i++) {
-    cordenadas.push($(document.body.children[i]).position().top)
-  }
-  console.log(cordenadas)
-}
-getCordenadas()
+    // Desplazamiento
+    css3: true,
+    scrollingSpeed: 400,
+    autoScrolling: true,
+    fitToSection: true,
+    fitToSectionDelay: 1000,
+    scrollBar: false,
+    easing: 'easeInOutCubic',
+    easingcss3: 'ease',
+    loopBottom: false,
+    loopTop: false,
+    loopHorizontal: true,
+    continuousVertical: false,
+    continuousHorizontal: false,
+    scrollHorizontally: false,
+    interlockedSlides: false,
+    dragAndMove: false,
+    offsetSections: false,
+    resetSliders: false,
+    fadingEffect: false,
+    scrollOverflow: true,
+    scrollOverflowReset: false,
+    scrollOverflowOptions: null,
+    touchSensitivity: 15,
+    normalScrollElementTouchThreshold: 5,
+    bigSectionsDestination: null,
 
-$(window).resize(function() {
-  getCordenadas()
+    // Accesibilidad
+    keyboardScrolling: true,
+    animateAnchor: true,
+    recordHistory: true,
+
+    // Diseno
+    controlArrows: false,
+    verticalCentered: true,
+    sectionsColor: ['#ecf0f1', '#fff', '#fff', '#fff']
+  })
 })
 
-const moveUp = (c) => {
-  if (!$('body').is(':animated')) {
-    $('body').animate({scrollTop: cordenadas[c]}, 400)
-  }
-}
+// Ejemplo 1
 
-const moveDown = (c) => {
-  if (!$('body').is(':animated')) {
-    $('body').animate({scrollTop: cordenadas[c]}, 400)
-  }
-}
-
-let posicion = $(window).scrollTop()
-let current = () => {
-  for (let i = 0; i < cordenadas.length; i++) {
-    if (posicion < cordenadas[i]) return i - 1
-  }
-}
-$(window).scroll(function(e) {
-  const scroll = $(window).scrollTop()
-  if (scroll > posicion) {
-    console.log('scrollDown')
-    moveDown(current())
-  } else {
-    console.log('scrollUp')
-    moveUp(current())
-  }
-  posicion = scroll
+$('menu').click(function () {
+  $.fn.fullpage.moveTo($(this).parent('nav').parent('section').attr('data-anchor'), $(this).attr('to'))
 })
+
+const ejemplo1 = new FormKeeper({
+  domEl: 'ejemplo1',
+  ignorarDomEls: ['ej1password', 'ej1passwordR']
+})
+
+$('#ej1restaurar').click(function () {
+  ejemplo1.restaurar(() => {
+    alert(`${ejemplo1.guardados()} valores Restaurados con FormKeeper`)
+  })
+})
+
+$('#ej1limpiar').click(function () {
+  ejemplo1.limpiar(() => {
+    alert(`${ejemplo1.guardados()} valores Limpiados con FormKeeper`)
+    $('#ej1restaurar').fadeOut('400')
+    $('#ej1limpiar').fadeOut('400')
+  })
+})
+
+if (ejemplo1.guardados() > 0) {
+  $('#ej1restaurar').fadeIn('400')
+  $('#ej1limpiar').fadeIn('400')
+}
+
+// Ejemplo 2
