@@ -244,6 +244,10 @@ img + .ex {
   bottom: 0;
 }
 
+.linenums li {
+  list-style-type: decimal;
+}
+
 .do > h2 {
   width: 100%;
   text-align: center;
