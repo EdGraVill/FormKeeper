@@ -65,7 +65,7 @@ class FormKeeperLite {
     }
 
     // Agregar el identificador único con el que evitaremos repetir o ingresar datos en el lugar que no corresponden.
-    fk.identificador = typeof fk.domEl === 'string' ? this.encode(`${window.location.href} - ${this.getPathTo(fk.domEls[0])}`) : this.encode(`${window.location.href} - ${this.getPathTo(fk.domEl)}`)
+    fk.identificador = typeof fk.domEl === 'string' ? this.encode(`${window.location.origin} - ${this.getPathTo(fk.domEls[0])}`) : this.encode(`${window.location.origin} - ${this.getPathTo(fk.domEl)}`)
 
     // Se tratan los inputs de tipo radio.
     const objRds = {}
