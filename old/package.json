@@ -1,0 +1,44 @@
+{
+  "name": "formkeeper",
+  "version": "1.3.10",
+  "description": "Mantén la información de tus \"form\" sin guardar a salvo de cualquier imprevisto. JavaScript puro y sin necesidad de back-end.",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-footer": "^1.0.5",
+    "gulp-header": "^1.8.8",
+    "gulp-param": "^1.0.3",
+    "gulp-prettydiff": "^1.0.1",
+    "gulp-remember": "^0.3.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-watch": "^4.3.11"
+  },
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdGraVill/FormKeeper.git"
+  },
+  "keywords": [
+    "form",
+    "keeper",
+    "formkeeper",
+    "js",
+    "javascript",
+    "no-jquery",
+    "library",
+    "librería",
+    "guardar",
+    "imprevisto"
+  ],
+  "author": "Eduardo Grajales",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/EdGraVill/FormKeeper/issues"
+  },
+  "homepage": "https://github.com/EdGraVill/FormKeeper#readme"
+}
