@@ -1,6 +1,6 @@
 {
   "name": "formkeeper",
-  "version": "2.0.2",
+  "version": "2.1.1",
   "description": "Mantén a salvo la información que tus usuarios introducen en tus formularios ante cualquier imprevisto; de forma inteligente y rápida. JavaScript, Cross-Browser y sin necesidad de Back-End",
   "main": "formKeeper.js",
   "scripts": {

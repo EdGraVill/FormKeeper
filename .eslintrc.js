@@ -4,4 +4,9 @@ module.exports = {
   plugins: [
     'flowtype',
   ],
+  globals: {
+    HTMLElement: true,
+    window: true,
+    document: true,
+  }
 };

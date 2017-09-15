@@ -6,3 +6,11 @@
 - Librería única.
 - Sparación por módulos básicos
 - Eslint integrado
+
+# 2.0.2
+
+- Rescate de la vieja web (Planes para desarrollarla en React)
+
+# 2.1.0
+
+- Rama develop y git flow integrados
