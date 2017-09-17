@@ -5,6 +5,7 @@ export type Data = {
   version : number,
   autoRestaurar : boolean,
   form : HTMLElement,
+  identificador : string,
   inputs : Array<{
     id : string,
     DOMNode : HTMLElement,
@@ -22,4 +23,4 @@ export type Data = {
   guardarCallback: Function,
   restaurarCallback : Function,
   limpiarCallback : Function,
-}
+} | {};

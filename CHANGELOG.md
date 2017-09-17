@@ -11,6 +11,12 @@
 
 - Rescate de la vieja web (Planes para desarrollarla en React)
 
-# 2.1.0
+# 2.1.1
 
 - Rama develop y git flow integrados
+
+# 2.1.2
+
+- Objetos heredados
+- Implementación en storage_localStorage
+- Fix de sintaxis en type de data.js
