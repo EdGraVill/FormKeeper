@@ -12,7 +12,7 @@ import Data from '../types/data';
 
 import Model from './storage_model';
 
-class LocalStorage extends Model {
+class Cookie extends Model {
   cookies : { [string]: string };
 
   constructor(identificador : string) {
@@ -70,4 +70,4 @@ class LocalStorage extends Model {
   }
 }
 
-export default LocalStorage;
+export default Cookie;

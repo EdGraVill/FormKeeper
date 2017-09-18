@@ -20,3 +20,11 @@
 - Objetos heredados
 - Implementación en storage_localStorage
 - Fix de sintaxis en type de data.js
+
+# 2.1.3
+
+- Objetos para guardado de información terminados
+
+# 2.1.4
+
+- Controlador de almacenamiento
