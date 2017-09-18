@@ -12,7 +12,7 @@ import Data from '../types/data';
 import Model from './storage_model';
 
 class URLStorage extends Model {
-  uriSerializado : { [string] : string };
+  uriSerializado : { [string]: string };
 
   constructor(identificador : string) {
     super(identificador);
@@ -42,14 +42,15 @@ class URLStorage extends Model {
 
     const uriData : string = encodeURI(JSON.stringify(data));
 
-    const obj = {};
+    const obj : { [string]: string } = {};
     obj[this.identificador] = uriData;
 
     const nuevoObj : { [string] : string } = Object.assign({}, this.uriSerializado, obj);
 
     let string : string = '?';
-    Object.keys(nuevoObj).forEach((key) => {
-      string += `${key}=${nuevoObj[key]}`;
+    Object.keys(nuevoObj).forEach((key, i, k) => {
+      if (k.length === i + 1) string += `${key}=${nuevoObj[key]}`;
+      string += `${key}=${nuevoObj[key]}&`;
     });
 
     const { pathname } = window.location;
@@ -64,7 +65,7 @@ class URLStorage extends Model {
   obtener() : typeof Data {
     this.getURI();
 
-    const data = this.uriSerializado[this.identificador]
+    const data : typeof Data = this.uriSerializado[this.identificador]
       ? JSON.parse(decodeURI(this.uriSerializado[this.identificador]))
       : {};
 
